@@ -1,0 +1,92 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-23 10:00:00",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "created_on",
+  "reason_category",
+  "reason_details",
+  "assigned_to_user",
+  "assigned_to_vendor",
+  "due_date",
+  "status",
+  "closure_notes",
+  "closed_on",
+  "attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "created_on",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Created On"
+  },
+  {
+   "fieldname": "reason_category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Reason Category",
+   "options": "Customer Not Available\nAccess Issue\nLayout Change\nElectrical Change\nDISCOM Requirement\nMaterial Not Available\nQuality Issue\nDocumentation Missing\nSafety Issue\nOther"
+  },
+  {
+   "fieldname": "reason_details",
+   "fieldtype": "Small Text",
+   "label": "Reason Details"
+  },
+  {
+   "fieldname": "assigned_to_user",
+   "fieldtype": "Link",
+   "label": "Assigned To User",
+   "options": "User"
+  },
+  {
+   "fieldname": "assigned_to_vendor",
+   "fieldtype": "Link",
+   "label": "Assigned To Vendor",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Due Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Open\nClosed"
+  },
+  {
+   "fieldname": "closure_notes",
+   "fieldtype": "Small Text",
+   "label": "Closure Notes"
+  },
+  {
+   "fieldname": "closed_on",
+   "fieldtype": "Datetime",
+   "label": "Closed On"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-12-23 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Solar ERP",
+ "name": "Revisit Log",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,117 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "creation": "2025-12-26 20:55:00",
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "item_code",
+        "item_name",
+        "item_group",
+        "item_type",
+        "column_break_1",
+        "qty",
+        "uom",
+        "warehouse",
+        "section_break_source",
+        "source_technical_survey",
+        "source_row_idx"
+    ],
+    "fields": [
+        {
+            "fieldname": "item_code",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Item Code",
+            "options": "Item",
+            "read_only": 1,
+            "reqd": 1
+        },
+        {
+            "fetch_from": "item_code.item_name",
+            "fieldname": "item_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Item Name",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "item_code.item_group",
+            "fieldname": "item_group",
+            "fieldtype": "Link",
+            "label": "Item Group",
+            "options": "Item Group",
+            "read_only": 1
+        },
+        {
+            "fieldname": "item_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Item Type",
+            "options": "Panel\nInverter\nBattery\nOther",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "qty",
+            "fieldtype": "Float",
+            "in_list_view": 1,
+            "label": "Qty",
+            "precision": "3",
+            "read_only": 1,
+            "reqd": 1
+        },
+        {
+            "fetch_from": "item_code.stock_uom",
+            "fieldname": "uom",
+            "fieldtype": "Link",
+            "label": "UOM",
+            "options": "UOM",
+            "read_only": 1
+        },
+        {
+            "fieldname": "warehouse",
+            "fieldtype": "Link",
+            "label": "Warehouse",
+            "options": "Warehouse",
+            "read_only": 1
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "section_break_source",
+            "fieldtype": "Section Break",
+            "label": "Source"
+        },
+        {
+            "fieldname": "source_technical_survey",
+            "fieldtype": "Link",
+            "label": "Source Technical Survey",
+            "options": "Technical Survey",
+            "read_only": 1
+        },
+        {
+            "description": "Row index from Technical Survey BOM",
+            "fieldname": "source_row_idx",
+            "fieldtype": "Int",
+            "label": "Source Row Idx",
+            "read_only": 1
+        }
+    ],
+    "index_web_pages_for_search": 0,
+    "istable": 1,
+    "links": [],
+    "modified": "2025-12-26 20:55:00",
+    "modified_by": "Administrator",
+    "module": "Solar Erp",
+    "name": "Sales Order BOM Item",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "idx",
+    "sort_order": "ASC",
+    "states": [],
+    "track_changes": 0
+}

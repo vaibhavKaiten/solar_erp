@@ -1,0 +1,289 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-12-23 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "references_section",
+  "meter_commissioning",
+  "job_file",
+  "lead",
+  "project",
+  "status",
+  "assignment_section",
+  "assigned_internal_user",
+  "assigned_vendor",
+  "verification_section",
+  "verification_date",
+  "verification_reference_no",
+  "verification_status",
+  "verification_notes",
+  "final_documents_section",
+  "sld_final",
+  "customer_handover_form",
+  "warranty_documents",
+  "customer_acceptance_section",
+  "customer_signature",
+  "handover_completed_on",
+  "customer_feedback",
+  "final_review_section",
+  "reviewer",
+  "review_decision",
+  "final_approval",
+  "closure_comments"
+ ],
+ "fields": [
+  {
+   "default": "VH-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "VH-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "description": "Source Meter Commissioning record",
+   "fieldname": "meter_commissioning",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Meter Commissioning",
+   "options": "Meter Commissioning",
+   "read_only": 1
+  },
+  {
+   "fieldname": "job_file",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Job File",
+   "options": "Job File",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "job_file.lead",
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "label": "Lead",
+   "options": "Lead",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "job_file.project",
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nScheduled\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "assignment_section",
+   "fieldtype": "Section Break",
+   "label": "Assignment"
+  },
+  {
+   "fieldname": "assigned_internal_user",
+   "fieldtype": "Link",
+   "label": "Assigned Internal User",
+   "options": "User"
+  },
+  {
+   "fieldname": "assigned_vendor",
+   "fieldtype": "Link",
+   "label": "Assigned Vendor",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "verification_section",
+   "fieldtype": "Section Break",
+   "label": "Verification"
+  },
+  {
+   "fieldname": "verification_date",
+   "fieldtype": "Date",
+   "label": "Verification Date"
+  },
+  {
+   "fieldname": "verification_reference_no",
+   "fieldtype": "Data",
+   "label": "Verification Reference No"
+  },
+  {
+   "fieldname": "verification_status",
+   "fieldtype": "Select",
+   "label": "Verification Status",
+   "options": "Pending\nDone\nFailed"
+  },
+  {
+   "fieldname": "verification_notes",
+   "fieldtype": "Text",
+   "label": "Verification Notes"
+  },
+  {
+   "fieldname": "final_documents_section",
+   "fieldtype": "Section Break",
+   "label": "Final Documents"
+  },
+  {
+   "fieldname": "sld_final",
+   "fieldtype": "Attach",
+   "label": "SLD Final"
+  },
+  {
+   "fieldname": "customer_handover_form",
+   "fieldtype": "Attach",
+   "label": "Customer Handover Form"
+  },
+  {
+   "fieldname": "warranty_documents",
+   "fieldtype": "Attach",
+   "label": "Warranty Documents"
+  },
+  {
+   "fieldname": "customer_acceptance_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Acceptance"
+  },
+  {
+   "fieldname": "customer_signature",
+   "fieldtype": "Attach",
+   "label": "Customer Signature"
+  },
+  {
+   "fieldname": "handover_completed_on",
+   "fieldtype": "Date",
+   "label": "Handover Completed On"
+  },
+  {
+   "fieldname": "customer_feedback",
+   "fieldtype": "Small Text",
+   "label": "Customer Feedback"
+  },
+  {
+   "fieldname": "final_review_section",
+   "fieldtype": "Section Break",
+   "label": "Final Review"
+  },
+  {
+   "fieldname": "reviewer",
+   "fieldtype": "Link",
+   "label": "Reviewer",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_decision",
+   "fieldtype": "Select",
+   "label": "Review Decision",
+   "options": "Approved\nRework",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "final_approval",
+   "fieldtype": "Check",
+   "label": "Final Approval"
+  },
+  {
+   "fieldname": "closure_comments",
+   "fieldtype": "Text",
+   "label": "Closure Comments"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-06 17:14:08.169729",
+ "modified_by": "Administrator",
+ "module": "Solar ERP",
+ "name": "Verification Handover",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Vendor Executive",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Project Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Executive"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Verification Handover Executive",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Verification Handover Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

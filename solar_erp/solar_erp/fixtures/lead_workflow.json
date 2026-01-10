@@ -1,0 +1,179 @@
+[
+ {
+  "doctype": "Workflow",
+  "name": "Lead",
+  "workflow_name": "Lead",
+  "document_type": "Lead",
+  "is_active": 1,
+  "override_status": 1,
+  "send_email_alert": 0,
+  "workflow_state_field": "workflow_state",
+  "module": "Solar ERP",
+  "states": [
+   {
+    "doctype": "Workflow Document State",
+    "state": "Draft",
+    "doc_status": "0",
+    "allow_edit": "Sales Executive"
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Contacted",
+    "doc_status": "0",
+    "allow_edit": "Sales Executive"
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Qualified",
+    "doc_status": "0",
+    "allow_edit": "Sales Executive"
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "On Hold",
+    "doc_status": "0",
+    "allow_edit": "Sales Executive"
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Reopen",
+    "doc_status": "0",
+    "allow_edit": "Sales Executive"
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Initiate Job",
+    "doc_status": "0",
+    "allow_edit": "Sales Manager"
+   },
+   {
+    "doctype": "Workflow Document State",
+    "state": "Dropped",
+    "doc_status": "0",
+    "allow_edit": "Sales Manager"
+   }
+  ],
+  "transitions": [
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Mark Contacted",
+    "next_state": "Contacted",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Draft",
+    "action": "Drop Lead",
+    "next_state": "Dropped",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Contacted",
+    "action": "Mark Qualified",
+    "next_state": "Qualified",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Contacted",
+    "action": "Put On Hold",
+    "next_state": "On Hold",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Contacted",
+    "action": "Drop Lead",
+    "next_state": "Dropped",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Qualified",
+    "action": "Put On Hold",
+    "next_state": "On Hold",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Qualified",
+    "action": "Initiate Job",
+    "next_state": "Initiate Job",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Qualified",
+    "action": "Drop Lead",
+    "next_state": "Dropped",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "On Hold",
+    "action": "Reopen Lead",
+    "next_state": "Reopen",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "On Hold",
+    "action": "Drop Lead",
+    "next_state": "Dropped",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Reopen",
+    "action": "Mark Contacted",
+    "next_state": "Contacted",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Reopen",
+    "action": "Mark Qualified",
+    "next_state": "Qualified",
+    "allowed": "Sales Executive",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Reopen",
+    "action": "Drop Lead",
+    "next_state": "Dropped",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Initiate Job",
+    "action": "Put On Hold",
+    "next_state": "On Hold",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   },
+   {
+    "doctype": "Workflow Transition",
+    "state": "Initiate Job",
+    "action": "Drop Lead",
+    "next_state": "Dropped",
+    "allowed": "Sales Manager",
+    "allow_self_approval": 1
+   }
+  ]
+ }
+]

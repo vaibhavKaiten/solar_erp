@@ -1,0 +1,395 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-12-23 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "core_references_section",
+  "lead",
+  "customer",
+  "quotation",
+  "sales_order",
+  "project",
+  "overall_status",
+  "column_break_1",
+  "subsidy_required",
+  "finance_required",
+  "proposed_system",
+  "indicative_price",
+  "token_section",
+  "token_amount_received",
+  "token_received_date",
+  "qualification_ready",
+  "customer_snapshot_section",
+  "first_name",
+  "last_name",
+  "company_name",
+  "mobile_no",
+  "column_break_2",
+  "email_id",
+  "alternate_contact_name",
+  "alternate_contact_number",
+  "location_snapshot_section",
+  "address_line_1",
+  "address_line_2",
+  "address_line_3",
+  "city",
+  "state",
+  "territory",
+  "column_break_3",
+  "google_map_link",
+  "latitude",
+  "longitude",
+  "electrical_snapshot_section",
+  "k_number",
+  "phase_type",
+  "existing_load_kw",
+  "column_break_4",
+  "required_load_kw",
+  "current_monthly_bill",
+  "job_control_section",
+  "current_step",
+  "last_step_completed",
+  "job_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "JOB-.YYYY.-.#####",
+   "reqd": 1,
+   "default": "JOB-.YYYY.-.#####"
+  },
+  {
+   "fieldname": "core_references_section",
+   "fieldtype": "Section Break",
+   "label": "Core References"
+  },
+  {
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "label": "Lead",
+   "options": "Lead",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "label": "Quotation",
+   "options": "Quotation"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "overall_status",
+   "fieldtype": "Select",
+   "label": "Overall Status",
+   "options": "Open\nIn Progress\nOn Hold\nCompleted\nCancelled",
+   "default": "Open"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subsidy_required",
+   "fieldtype": "Check",
+   "label": "Subsidy Required",
+   "fetch_from": "lead.custom_subsidy_required",
+   "read_only": 1
+  },
+  {
+   "fieldname": "finance_required",
+   "fieldtype": "Check",
+   "label": "Finance Required",
+   "fetch_from": "lead.custom_finance_required",
+   "read_only": 1
+  },
+  {
+   "fieldname": "proposed_system",
+   "fieldtype": "Link",
+   "label": "Proposed System",
+   "options": "Item",
+   "fetch_from": "lead.custom_proposed_system",
+   "read_only": 1
+  },
+  {
+   "fieldname": "indicative_price",
+   "fieldtype": "Currency",
+   "label": "Indicative Price",
+   "fetch_from": "lead.custom_indicative_price",
+   "read_only": 1
+  },
+  {
+   "fieldname": "token_section",
+   "fieldtype": "Section Break",
+   "label": "Token"
+  },
+  {
+   "fieldname": "token_amount_received",
+   "fieldtype": "Currency",
+   "label": "Token Amount Received"
+  },
+  {
+   "fieldname": "token_received_date",
+   "fieldtype": "Date",
+   "label": "Token Received Date",
+   "depends_on": "eval:doc.token_amount_received"
+  },
+  {
+   "fieldname": "qualification_ready",
+   "fieldtype": "Check",
+   "label": "Qualification Ready"
+  },
+  {
+   "fieldname": "customer_snapshot_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Snapshot",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name",
+   "fetch_from": "lead.first_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name",
+   "fetch_from": "lead.last_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name",
+   "fetch_from": "lead.company_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No",
+   "options": "Phone",
+   "fetch_from": "lead.mobile_no",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "fetch_from": "lead.email_id",
+   "read_only": 1
+  },
+  {
+   "fieldname": "alternate_contact_name",
+   "fieldtype": "Data",
+   "label": "Alternate Contact Name",
+   "fetch_from": "lead.custom_alternate_contact_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "alternate_contact_number",
+   "fieldtype": "Data",
+   "label": "Alternate Contact Number",
+   "options": "Phone",
+   "fetch_from": "lead.custom_alternate_contact_number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "location_snapshot_section",
+   "fieldtype": "Section Break",
+   "label": "Location Snapshot",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "Address Line 1",
+   "fetch_from": "lead.custom_address_line_1",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address_line_2",
+   "fieldtype": "Data",
+   "label": "Address Line 2",
+   "fetch_from": "lead.custom_address_line_2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address_line_3",
+   "fieldtype": "Data",
+   "label": "Address Line 3",
+   "fetch_from": "lead.custom_address_line_3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City",
+   "fetch_from": "lead.city",
+   "read_only": 1
+  },
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State",
+   "fetch_from": "lead.state",
+   "read_only": 1
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory",
+   "fetch_from": "lead.territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "google_map_link",
+   "fieldtype": "Data",
+   "label": "Google Map Link",
+   "fetch_from": "lead.custom_google_map_link",
+   "read_only": 1
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "fetch_from": "lead.custom_latitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "fetch_from": "lead.custom_longitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "electrical_snapshot_section",
+   "fieldtype": "Section Break",
+   "label": "Electrical Snapshot",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "k_number",
+   "fieldtype": "Data",
+   "label": "K Number",
+   "fetch_from": "lead.custom_k_number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "phase_type",
+   "fieldtype": "Select",
+   "label": "Phase Type",
+   "options": "Single\nThree",
+   "fetch_from": "lead.custom_phase_type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "existing_load_kw",
+   "fieldtype": "Float",
+   "label": "Existing Load (kW)",
+   "fetch_from": "lead.custom_existing_load_kw",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "required_load_kw",
+   "fieldtype": "Float",
+   "label": "Required Load (kW)",
+   "fetch_from": "lead.custom_required_load_kw",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_monthly_bill",
+   "fieldtype": "Currency",
+   "label": "Current Monthly Bill",
+   "fetch_from": "lead.custom_current_monthly_bill",
+   "read_only": 1
+  },
+  {
+   "fieldname": "job_control_section",
+   "fieldtype": "Section Break",
+   "label": "Job Control"
+  },
+  {
+   "fieldname": "current_step",
+   "fieldtype": "Select",
+   "label": "Current Step",
+   "options": "\nTechnical Survey\nStructure Mounting\nPanel Installation\nMeter Installation\nMeter Commissioning\nVerification & Handover\nCompleted"
+  },
+  {
+   "fieldname": "last_step_completed",
+   "fieldtype": "Select",
+   "label": "Last Step Completed",
+   "options": "\nTechnical Survey\nStructure Mounting\nPanel Installation\nMeter Installation\nMeter Commissioning\nVerification & Handover"
+  },
+  {
+   "fieldname": "job_notes",
+   "fieldtype": "Text",
+   "label": "Job Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-23 10:00:00",
+ "modified_by": "Administrator",
+ "module": "Solar ERP",
+ "name": "Job File",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,18 @@
+[
+ {
+  "default_value": null,
+  "doc_type": "Lead",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "organization_section",
+  "is_system_generated": 0,
+  "modified": "2026-01-05 13:58:57.239775",
+  "module": "Solar Project",
+  "name": "Lead-organization_section-hidden",
+  "property": "hidden",
+  "property_type": "Check",
+  "row_name": null,
+  "value": "1"
+ }
+]

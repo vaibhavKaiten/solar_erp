@@ -1,0 +1,407 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "question-sign",
+  "modified": "2025-11-09 04:24:29.130630",
+  "name": "Pending",
+  "style": "",
+  "workflow_state_name": "Pending"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.469320",
+  "name": "Contacted",
+  "style": "Primary",
+  "workflow_state_name": "Contacted"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.475885",
+  "name": "Site Visit Scheduled",
+  "style": "Primary",
+  "workflow_state_name": "Site Visit Scheduled"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.478754",
+  "name": "Dropped",
+  "style": "Primary",
+  "workflow_state_name": "Dropped"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.928395",
+  "name": "Scheduled",
+  "style": "Primary",
+  "workflow_state_name": "Scheduled"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.938957",
+  "name": "Revisit Required",
+  "style": "Primary",
+  "workflow_state_name": "Revisit Required"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.158290",
+  "name": "Rework",
+  "style": "Primary",
+  "workflow_state_name": "Rework"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.395957",
+  "name": "Hold",
+  "style": "Primary",
+  "workflow_state_name": "Hold"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.831630",
+  "name": "Feasibility Approved",
+  "style": "Primary",
+  "workflow_state_name": "Feasibility Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.842389",
+  "name": "Energized",
+  "style": "Primary",
+  "workflow_state_name": "Energized"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.845505",
+  "name": "Closed",
+  "style": "Primary",
+  "workflow_state_name": "Closed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.199387",
+  "name": "Registered",
+  "style": "Primary",
+  "workflow_state_name": "Registered"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.202366",
+  "name": "Vendor Selected",
+  "style": "Primary",
+  "workflow_state_name": "Vendor Selected"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.205101",
+  "name": "Feasibility",
+  "style": "Primary",
+  "workflow_state_name": "Feasibility"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.208042",
+  "name": "Installation",
+  "style": "Primary",
+  "workflow_state_name": "Installation"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.211290",
+  "name": "Inspection",
+  "style": "Primary",
+  "workflow_state_name": "Inspection"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.214396",
+  "name": "Commissioned",
+  "style": "Primary",
+  "workflow_state_name": "Commissioned"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.218057",
+  "name": "Invoice Submitted",
+  "style": "Primary",
+  "workflow_state_name": "Invoice Submitted"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.220943",
+  "name": "Subsidy Approved",
+  "style": "Primary",
+  "workflow_state_name": "Subsidy Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.223944",
+  "name": "Subsidy Paid",
+  "style": "Primary",
+  "workflow_state_name": "Subsidy Paid"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.747849",
+  "name": "Assigned",
+  "style": "Primary",
+  "workflow_state_name": "Assigned"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:54.989895",
+  "name": "Site Handover",
+  "style": "",
+  "workflow_state_name": "Site Handover"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:55.009451",
+  "name": "Vendor Approved",
+  "style": "",
+  "workflow_state_name": "Vendor Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:55.018793",
+  "name": "Approve By Vendor",
+  "style": "",
+  "workflow_state_name": "Approve By Vendor"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:55.120514",
+  "name": "On Hold",
+  "style": "Primary",
+  "workflow_state_name": "On Hold"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "remove",
+  "modified": "2025-11-09 04:24:29.133671",
+  "name": "Rejected",
+  "style": "Danger",
+  "workflow_state_name": "Rejected"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.473085",
+  "name": "Qualified",
+  "style": "Primary",
+  "workflow_state_name": "Qualified"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.933833",
+  "name": "Submitted for Review",
+  "style": "Primary",
+  "workflow_state_name": "Submitted for Review"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.386362",
+  "name": "Planned",
+  "style": "Primary",
+  "workflow_state_name": "Planned"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.624028",
+  "name": "Under Review",
+  "style": "Primary",
+  "workflow_state_name": "Under Review"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.627880",
+  "name": "Paid",
+  "style": "Primary",
+  "workflow_state_name": "Paid"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.834389",
+  "name": "Inspection Scheduled",
+  "style": "Primary",
+  "workflow_state_name": "Inspection Scheduled"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.839715",
+  "name": "Net Meter Installed",
+  "style": "Primary",
+  "workflow_state_name": "Net Meter Installed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.931263",
+  "name": "On-Site",
+  "style": "Primary",
+  "workflow_state_name": "On-Site"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.428461",
+  "name": "Open",
+  "style": "Primary",
+  "workflow_state_name": "Open"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:35.432036",
+  "name": "Resolved",
+  "style": "Primary",
+  "workflow_state_name": "Resolved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.390488",
+  "name": "In Progress",
+  "style": "Primary",
+  "workflow_state_name": "In Progress"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.621078",
+  "name": "Submitted",
+  "style": "Primary",
+  "workflow_state_name": "Submitted"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.828658",
+  "name": "Applied",
+  "style": "Primary",
+  "workflow_state_name": "Applied"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.837047",
+  "name": "Inspected",
+  "style": "Primary",
+  "workflow_state_name": "Inspected"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "ok-sign",
+  "modified": "2025-11-09 04:24:29.132248",
+  "name": "Approved",
+  "style": "Success",
+  "workflow_state_name": "Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.936366",
+  "name": "Completed",
+  "style": "Primary",
+  "workflow_state_name": "Completed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.465536",
+  "name": "Draft",
+  "style": "Primary",
+  "workflow_state_name": "Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-12-23 17:23:31.286066",
+  "name": "Initiate Job",
+  "style": "Success",
+  "workflow_state_name": "Initiate Job"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-12-23 17:23:31.274118",
+  "name": "Reopen",
+  "style": "Inverse",
+  "workflow_state_name": "Reopen"
+ }
+]

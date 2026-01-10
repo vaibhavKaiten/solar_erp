@@ -1,0 +1,331 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-12-23 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "references_section",
+  "job_file",
+  "lead",
+  "project",
+  "status",
+  "linked_panel_installation",
+  "assignment_section",
+  "assigned_internal_user",
+  "assigned_vendor",
+  "planned_start_date",
+  "column_break_1",
+  "planned_end_date",
+  "actual_start_date",
+  "actual_end_date",
+  "execution_section",
+  "structure_type",
+  "anchoring_type",
+  "structure_height_m",
+  "structure_completion_status",
+  "execution_notes",
+  "materials_section",
+  "materials",
+  "photos_section",
+  "photos",
+  "manager_action_section",
+  "workflow_reason",
+  "review_section",
+  "reviewer",
+  "review_decision",
+  "review_comments",
+  "revisit_section",
+  "revisit_logs"
+ ],
+ "fields": [
+  {
+   "default": "SM-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "SM-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "fieldname": "job_file",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Job File",
+   "options": "Job File",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "job_file.lead",
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "label": "Lead",
+   "options": "Lead",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "job_file.project",
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nIn Progress\nOn Hold\nSubmitted\nApproved\nRejected"
+  },
+  {
+   "description": "Auto-created when Structure Mounting is approved",
+   "fieldname": "linked_panel_installation",
+   "fieldtype": "Link",
+   "label": "Linked Panel Installation",
+   "options": "Project Installation",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.status == 'Submitted' || doc.status == 'Rejected' || doc.status == 'On Hold'",
+   "fieldname": "manager_action_section",
+   "fieldtype": "Section Break",
+   "label": "Manager Action"
+  },
+  {
+   "description": "Required when rejecting or putting on hold",
+   "fieldname": "workflow_reason",
+   "fieldtype": "Small Text",
+   "label": "Reason for Rejection / On Hold",
+   "mandatory_depends_on": "eval:doc.status == 'Rejected' || doc.status == 'On Hold'"
+  },
+  {
+   "fieldname": "assignment_section",
+   "fieldtype": "Section Break",
+   "label": "Assignment & Planning"
+  },
+  {
+   "fieldname": "assigned_internal_user",
+   "fieldtype": "Link",
+   "label": "Assigned Internal User",
+   "options": "User"
+  },
+  {
+   "fieldname": "assigned_vendor",
+   "fieldtype": "Link",
+   "label": "Assigned Vendor",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "planned_start_date",
+   "fieldtype": "Date",
+   "label": "Planned Start Date"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "planned_end_date",
+   "fieldtype": "Date",
+   "label": "Planned End Date"
+  },
+  {
+   "fieldname": "actual_start_date",
+   "fieldtype": "Date",
+   "label": "Actual Start Date"
+  },
+  {
+   "fieldname": "actual_end_date",
+   "fieldtype": "Date",
+   "label": "Actual End Date"
+  },
+  {
+   "fieldname": "execution_section",
+   "fieldtype": "Section Break",
+   "label": "Execution"
+  },
+  {
+   "fieldname": "structure_type",
+   "fieldtype": "Select",
+   "label": "Structure Type",
+   "options": "Fixed\nElevated\nBallasted\nOther"
+  },
+  {
+   "fieldname": "anchoring_type",
+   "fieldtype": "Select",
+   "label": "Anchoring Type",
+   "options": "Concrete Foundation\nRoof Penetration\nBallast\nClamps\nOther"
+  },
+  {
+   "fieldname": "structure_height_m",
+   "fieldtype": "Float",
+   "label": "Structure Height (m)"
+  },
+  {
+   "default": "Pending",
+   "description": "System-controlled. Set to Done when approved.",
+   "fieldname": "structure_completion_status",
+   "fieldtype": "Select",
+   "label": "Structure Completion Status",
+   "options": "Pending\nDone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_notes",
+   "fieldtype": "Text",
+   "label": "Execution Notes",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "materials_section",
+   "fieldtype": "Section Break",
+   "label": "Materials"
+  },
+  {
+   "fieldname": "materials",
+   "fieldtype": "Table",
+   "label": "Materials",
+   "options": "Material Line"
+  },
+  {
+   "fieldname": "photos_section",
+   "fieldtype": "Section Break",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "photos",
+   "fieldtype": "Table",
+   "label": "Photos",
+   "options": "Photo Log",
+   "permlevel": 1
+  },
+  {
+   "depends_on": "eval:doc.status == 'Approved' || doc.status == 'Rejected'",
+   "fieldname": "review_section",
+   "fieldtype": "Section Break",
+   "label": "Review & Approval"
+  },
+  {
+   "fieldname": "reviewer",
+   "fieldtype": "Link",
+   "label": "Reviewer",
+   "options": "User"
+  },
+  {
+   "fieldname": "review_decision",
+   "fieldtype": "Select",
+   "label": "Review Decision",
+   "options": "Approved\nRework"
+  },
+  {
+   "fieldname": "review_comments",
+   "fieldtype": "Small Text",
+   "label": "Review Comments"
+  },
+  {
+   "fieldname": "revisit_section",
+   "fieldtype": "Section Break",
+   "label": "Revisit Logs"
+  },
+  {
+   "fieldname": "revisit_logs",
+   "fieldtype": "Table",
+   "label": "Revisit Logs",
+   "options": "Revisit Log"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-06 17:14:07.351623",
+ "modified_by": "Administrator",
+ "module": "Solar ERP",
+ "name": "Structure Mounting",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Vendor Executive",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Project Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Executive"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager"
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Structure Mounting Executive",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Structure Mounting Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

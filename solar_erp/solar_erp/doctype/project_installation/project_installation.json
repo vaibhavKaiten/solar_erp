@@ -1,0 +1,372 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-12-23 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "references_section",
+  "structure_mounting",
+  "job_file",
+  "lead",
+  "column_break_mbwo",
+  "project",
+  "status",
+  "linked_meter_installation",
+  "assignment_section",
+  "assigned_internal_user",
+  "assigned_vendor",
+  "planned_start_date",
+  "column_break_1",
+  "planned_end_date",
+  "structure_data_section",
+  "structure_type",
+  "anchoring_type",
+  "column_break_struct",
+  "structure_height",
+  "installation_section",
+  "panel_item",
+  "panel_count",
+  "mounting_completion_status",
+  "wiring_completion_status",
+  "installation_notes",
+  "materials_section",
+  "materials",
+  "photos_section",
+  "photos",
+  "manager_action_section",
+  "workflow_reason",
+  "review_section",
+  "reviewer",
+  "review_decision",
+  "review_comments",
+  "revisit_section",
+  "revisit_logs"
+ ],
+ "fields": [
+  {
+   "default": "PI-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Series",
+   "options": "PI-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "fieldname": "structure_mounting",
+   "fieldtype": "Link",
+   "label": "Structure Mounting",
+   "options": "Structure Mounting",
+   "read_only": 1,
+   "in_standard_filter": 1,
+   "description": "Source Structure Mounting record"
+  },
+  {
+   "fieldname": "job_file",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Job File",
+   "options": "Job File",
+   "reqd": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "job_file.lead",
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "label": "Lead",
+   "options": "Lead",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "job_file.project",
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "linked_meter_installation",
+   "fieldtype": "Link",
+   "label": "Linked Meter Installation",
+   "options": "Meter Installation",
+   "read_only": 1,
+   "description": "Auto-created when Panel Installation is approved"
+  },
+  {
+   "fieldname": "assignment_section",
+   "fieldtype": "Section Break",
+   "label": "Assignment & Planning"
+  },
+  {
+   "fieldname": "assigned_internal_user",
+   "fieldtype": "Link",
+   "label": "Assigned Internal User",
+   "options": "User"
+  },
+  {
+   "fieldname": "assigned_vendor",
+   "fieldtype": "Link",
+   "label": "Assigned Vendor",
+   "options": "Supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "planned_start_date",
+   "fieldtype": "Date",
+   "label": "Planned Start Date"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "planned_end_date",
+   "fieldtype": "Date",
+   "label": "Planned End Date"
+  },
+  {
+   "fieldname": "structure_data_section",
+   "fieldtype": "Section Break",
+   "label": "Structure Data (From Approved Mounting)",
+   "description": "Read-only data carried forward from approved Structure Mounting"
+  },
+  {
+   "fieldname": "structure_type",
+   "fieldtype": "Data",
+   "label": "Structure Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "anchoring_type",
+   "fieldtype": "Data",
+   "label": "Anchoring Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_struct",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "structure_height",
+   "fieldtype": "Float",
+   "label": "Structure Height (m)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "installation_section",
+   "fieldtype": "Section Break",
+   "label": "Installation Details"
+  },
+  {
+   "fieldname": "panel_item",
+   "fieldtype": "Link",
+   "label": "Panel Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "panel_count",
+   "fieldtype": "Int",
+   "label": "Panel Count"
+  },
+  {
+   "fieldname": "mounting_completion_status",
+   "fieldtype": "Select",
+   "label": "Mounting Completion Status",
+   "options": "Not Started\nIn Progress\nDone\nBlocked"
+  },
+  {
+   "fieldname": "wiring_completion_status",
+   "fieldtype": "Select",
+   "label": "Wiring Completion Status",
+   "options": "Not Started\nIn Progress\nDone\nBlocked"
+  },
+  {
+   "fieldname": "installation_notes",
+   "fieldtype": "Text",
+   "label": "Installation Notes"
+  },
+  {
+   "fieldname": "materials_section",
+   "fieldtype": "Section Break",
+   "label": "Materials"
+  },
+  {
+   "fieldname": "materials",
+   "fieldtype": "Table",
+   "label": "Materials",
+   "options": "Material Line"
+  },
+  {
+   "fieldname": "photos_section",
+   "fieldtype": "Section Break",
+   "label": "Photos"
+  },
+  {
+   "fieldname": "photos",
+   "fieldtype": "Table",
+   "label": "Photos",
+   "options": "Photo Log"
+  },
+  {
+   "fieldname": "manager_action_section",
+   "fieldtype": "Section Break",
+   "label": "Manager Action",
+   "depends_on": "eval:doc.status == 'Blocked' || doc.status == 'Rework' || doc.status == 'Approved' || doc.status == 'Closed'",
+   "collapsible": 0
+  },
+  {
+   "fieldname": "workflow_reason",
+   "fieldtype": "Small Text",
+   "label": "Reason / Comments",
+   "description": "Required when approving, blocking, requesting rework, or closing",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_section",
+   "fieldtype": "Section Break",
+   "label": "Review & Approval",
+   "depends_on": "eval:doc.status == 'Approved' || doc.status == 'Closed'"
+  },
+  {
+   "fieldname": "reviewer",
+   "fieldtype": "Link",
+   "label": "Reviewer",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_decision",
+   "fieldtype": "Select",
+   "label": "Review Decision",
+   "options": "Approved\nRework",
+   "read_only": 1
+  },
+  {
+   "fieldname": "review_comments",
+   "fieldtype": "Small Text",
+   "label": "Review Comments",
+   "read_only": 1
+  },
+  {
+   "fieldname": "revisit_section",
+   "fieldtype": "Section Break",
+   "label": "Revisit Logs"
+  },
+  {
+   "fieldname": "revisit_logs",
+   "fieldtype": "Table",
+   "label": "Revisit Logs",
+   "options": "Revisit Log"
+  },
+  {
+   "fieldname": "column_break_mbwo",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-25 08:02:00.000000",
+ "modified_by": "Administrator",
+ "module": "Solar ERP",
+ "name": "Project Installation",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Vendor Executive",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Project Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Executive"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager"
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Panel Installation Executive",
+   "share": 0,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Panel Installation Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

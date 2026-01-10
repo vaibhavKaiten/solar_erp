@@ -1,0 +1,297 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "naming_series:",
+    "creation": "2025-12-23 10:00:00",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "naming_series",
+        "references_section",
+        "meter_installation",
+        "linked_verification_handover",
+        "job_file",
+        "lead",
+        "project",
+        "status",
+        "assignment_section",
+        "assigned_internal_user",
+        "assigned_vendor",
+        "commissioning_section",
+        "commissioning_date",
+        "pr_iv_test_report",
+        "inverter_sync_status",
+        "grid_sync_status",
+        "commissioning_notes",
+        "photos_section",
+        "photos",
+        "manager_action_section",
+        "workflow_reason",
+        "review_section",
+        "reviewer",
+        "review_decision",
+        "review_comments",
+        "revisit_section",
+        "revisit_logs"
+    ],
+    "fields": [
+        {
+            "fieldname": "naming_series",
+            "fieldtype": "Select",
+            "label": "Series",
+            "options": "MC-.YYYY.-.#####",
+            "reqd": 1,
+            "default": "MC-.YYYY.-.#####"
+        },
+        {
+            "fieldname": "references_section",
+            "fieldtype": "Section Break",
+            "label": "References"
+        },
+        {
+            "fieldname": "meter_installation",
+            "fieldtype": "Link",
+            "label": "Meter Installation",
+            "options": "Meter Installation",
+            "read_only": 1,
+            "in_standard_filter": 1,
+            "description": "Source Meter Installation record"
+        },
+        {
+            "fieldname": "linked_verification_handover",
+            "fieldtype": "Link",
+            "label": "Linked Verification Handover",
+            "options": "Verification Handover",
+            "read_only": 1,
+            "description": "Auto-created Verification Handover"
+        },
+        {
+            "fieldname": "job_file",
+            "fieldtype": "Link",
+            "label": "Job File",
+            "options": "Job File",
+            "reqd": 1,
+            "in_standard_filter": 1
+        },
+        {
+            "fieldname": "lead",
+            "fieldtype": "Link",
+            "label": "Lead",
+            "options": "Lead",
+            "fetch_from": "job_file.lead",
+            "read_only": 1
+        },
+        {
+            "fieldname": "project",
+            "fieldtype": "Link",
+            "label": "Project",
+            "options": "Project",
+            "fetch_from": "job_file.project",
+            "read_only": 1
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Draft\nScheduled\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
+            "default": "Draft",
+            "in_list_view": 1,
+            "read_only": 1
+        },
+        {
+            "fieldname": "assignment_section",
+            "fieldtype": "Section Break",
+            "label": "Assignment"
+        },
+        {
+            "fieldname": "assigned_internal_user",
+            "fieldtype": "Link",
+            "label": "Assigned Internal User",
+            "options": "User"
+        },
+        {
+            "fieldname": "assigned_vendor",
+            "fieldtype": "Link",
+            "label": "Assigned Vendor",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "commissioning_section",
+            "fieldtype": "Section Break",
+            "label": "Commissioning Details"
+        },
+        {
+            "fieldname": "commissioning_date",
+            "fieldtype": "Date",
+            "label": "Commissioning Date"
+        },
+        {
+            "fieldname": "pr_iv_test_report",
+            "fieldtype": "Attach",
+            "label": "PR/IV Test Report"
+        },
+        {
+            "fieldname": "inverter_sync_status",
+            "fieldtype": "Select",
+            "label": "Inverter Sync Status",
+            "options": "Pending\nDone\nNot Applicable"
+        },
+        {
+            "fieldname": "grid_sync_status",
+            "fieldtype": "Select",
+            "label": "Grid Sync Status",
+            "options": "Pending\nDone\nNot Applicable"
+        },
+        {
+            "fieldname": "commissioning_notes",
+            "fieldtype": "Text",
+            "label": "Commissioning Notes"
+        },
+        {
+            "fieldname": "photos_section",
+            "fieldtype": "Section Break",
+            "label": "Photos"
+        },
+        {
+            "fieldname": "photos",
+            "fieldtype": "Table",
+            "label": "Photos",
+            "options": "Photo Log"
+        },
+        {
+            "fieldname": "manager_action_section",
+            "fieldtype": "Section Break",
+            "label": "Manager Action",
+            "depends_on": "eval:doc.status == 'Blocked' || doc.status == 'Rework' || doc.status == 'Approved' || doc.status == 'Closed'",
+            "collapsible": 0
+        },
+        {
+            "fieldname": "workflow_reason",
+            "fieldtype": "Small Text",
+            "label": "Reason / Comments",
+            "description": "Required when approving, blocking, requesting rework, or closing",
+            "read_only": 1
+        },
+        {
+            "fieldname": "review_section",
+            "fieldtype": "Section Break",
+            "label": "Review & Approval"
+        },
+        {
+            "fieldname": "reviewer",
+            "fieldtype": "Link",
+            "label": "Reviewer",
+            "options": "User",
+            "read_only": 1
+        },
+        {
+            "fieldname": "review_decision",
+            "fieldtype": "Select",
+            "label": "Review Decision",
+            "read_only": 1,
+            "options": "Approved\nRework"
+        },
+        {
+            "fieldname": "review_comments",
+            "fieldtype": "Small Text",
+            "label": "Review Comments",
+            "read_only": 1
+        },
+        {
+            "fieldname": "revisit_section",
+            "fieldtype": "Section Break",
+            "label": "Revisit Logs"
+        },
+        {
+            "fieldname": "revisit_logs",
+            "fieldtype": "Table",
+            "label": "Revisit Logs",
+            "options": "Revisit Log"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2025-12-23 10:00:00",
+    "modified_by": "Administrator",
+    "module": "Solar ERP",
+    "name": "Meter Commissioning",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Vendor Executive",
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Project Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Executive"
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager"
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Meter Commissioning Executive",
+            "share": 0,
+            "write": 1
+        },
+        {
+            "create": 0,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Meter Commissioning Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+}
