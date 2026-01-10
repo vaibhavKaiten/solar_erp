@@ -1,0 +1,89 @@
+__pycache__/
+*.pyc
+.env
+node_modules/
+*.log
+*.zip
+.DS_Store
+
+# Backups
+*.zip
+backup_*/
+*.bak
+*.disabled
+*.disabled_temp
+
+# ERPNext junk
+*.log
+*.pyc
+__pycache__/
+
+# Local scripts / experiments
+scripts/
+check_*.py
+debug_*.py
+verify_*.py
+test_*.py
+.DS_Store
+
+
+# OS
+.DS_Store
+
+
+# ---- Docs & notes ----
+*.md
+
+# ---- Backups / temp ----
+*.zip
+*.bak
+*.backup
+__pycache__/
+*.pyc
+
+# ---- Other apps (ABSOLUTELY NO) ----
+solar_project/
+
+# ---- ERPNext junk ----
+patches.txt
+hooks.py.backup
+
+
+auto_fix_meter_links.py
+check_vh_method.py
+fix_remaining.py
+supplier_query.py
+check_doctype_meta.py
+check_vh_options.py
+
+temp_check_lead_fields.py
+check_mc_custom_fields.py
+debug_fix_single.py
+
+temp_check_script.py
+check_vh_approve.py
+verify_fix.py
+
+ATOMIC_CONSUMPTION_IMPLEMENTATION.md   
+LEAD_TERRITORY_FIELD_FIX.md                   
+backup_20260107_163517.zip
+ATOMIC_CONSUMPTION_SUMMARY.md          
+LEAD_TERRITORY_VALIDATION_FIX_20260109.md     
+backup_old_fixtures_20251223
+ATOMIC_CONSUMPTION_VISUAL_FLOW.md      
+PANEL_INSTALLATION_STATUS_FIX.md              
+backups
+BROWSER_CACHE_CLEAR_REQUIRED.md        
+PROCUREMENT_CONSOLIDATION_ENHANCEMENT.md      
+BUG_FIX_VERIFIED_READY_FOR_UI_TEST.md  
+PROCUREMENT_CONSOLIDATION_QUICK_REFERENCE.md  
+CHECKBOX_VISIBILITY_FIX_COMPLETE.md                                     
+CRITICAL_BUG_FIX_MR_CONSUMPTION.md     
+STRUCTURE_MOUNTING_ADMIN_OVERRIDE.md          
+LEAD_FORM_REORGANIZATION_SUMMARY.md    
+VENDOR_ASSIGNMENT_VALIDATION_FIX.md           
+test_territory_fix.py
+LEAD_FORM_VISUAL_REFERENCE.md          
+WORKFLOW_IMPLEMENTATION_GUIDE.md
+LEAD_STATUS_WORKFLOW_FIX.md            
+WORKFLOW_QUICK_REFERENCE.md
