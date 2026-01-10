@@ -293,7 +293,7 @@ Items marked complete when Required Qty = 0
 
 For detailed installation instructions for **Windows**, **Mac**, and **Linux**, please refer to:
 
-👉 **[INSTALLATION.md](./INSTALLATION.md)**
+👉 **[INSTALLATION.md](https://github.com/vaibhavKaiten/solar_erp/blob/main/solar_erp/INSTALLATION.md)**
 
 ### Quick Start (Existing ERPNext Site)
 
