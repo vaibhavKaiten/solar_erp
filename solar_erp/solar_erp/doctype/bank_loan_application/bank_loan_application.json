@@ -18,6 +18,7 @@
   "city",
   "state",
   "system_capacity_kw",
+  "testing_purpose",
   "application_tab",
   "customer_information",
   "lead",
@@ -42,12 +43,7 @@
   "rejection_reason",
   "amended_from",
   "col_br1",
-  "col_br2",
-  "address_section",
-  "col_br3",
-  "col_br4",
-  "col_br5",
-  "col_br6"
+  "col_br2"
  ],
  "fields": [
   {
@@ -101,11 +97,6 @@
    "label": "Email ID"
   },
   {
-   "fieldname": "address_section",
-   "fieldtype": "Section Break",
-   "label": "Address"
-  },
-  {
    "fieldname": "address_line_1",
    "fieldtype": "Data",
    "label": "Address Line 1"
@@ -114,10 +105,6 @@
    "fieldname": "address_line_2",
    "fieldtype": "Data",
    "label": "Address Line 2"
-  },
-  {
-   "fieldname": "col_br3",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "city",
@@ -147,10 +134,6 @@
    "label": "Estimated Cost"
   },
   {
-   "fieldname": "col_br4",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "loan_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -176,10 +159,6 @@
    "fieldname": "bank_branch",
    "fieldtype": "Data",
    "label": "Bank Branch"
-  },
-  {
-   "fieldname": "col_br5",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "application_date",
@@ -210,10 +189,6 @@
    "fieldtype": "Date",
    "label": "Approval Date",
    "read_only": 1
-  },
-  {
-   "fieldname": "col_br6",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "disbursement_date",
@@ -283,12 +258,18 @@
    "label": "Contact Number",
    "options": "Phone",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "testing_purpose",
+   "fieldtype": "Check",
+   "label": "Testing purpose"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-07 14:16:41.392039",
+ "modified": "2026-01-10 17:29:10.565028",
  "modified_by": "Administrator",
  "module": "Solar ERP",
  "name": "Bank Loan Application",
