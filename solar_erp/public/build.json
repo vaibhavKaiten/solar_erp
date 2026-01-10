@@ -1,0 +1,11 @@
+{
+    "js": [
+        "public/js/execution_common.js",
+        "public/js/lead.js",
+        "public/js/material_request_gst.js",
+        "public/js/quotation.js",
+        "public/js/sales_invoice.js",
+        "public/js/sales_order_mr.js",
+        "public/js/supplier.js"
+    ]
+}

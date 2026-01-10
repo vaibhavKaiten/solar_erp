@@ -137,7 +137,6 @@ app_include_js = "/assets/solar_erp/js/execution_common.js"
 
 # include js in doctype views
 doctype_js = {
-    "Product Bundle": "solar_project/custom/js/bundle.js",
     "Quotation": "public/js/quotation.js",
     "Sales Invoice": "public/js/sales_invoice.js",
     "Lead": "public/js/lead.js",
