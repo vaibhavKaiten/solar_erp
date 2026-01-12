@@ -291,7 +291,7 @@ def initiate_survey_for_vendor(survey_name):
     """
     Initiate Technical Survey for vendor company visibility
     
-    This changes the status from Draft to Scheduled, making it visible to
+    This changes the status from Draft to Assigned, making it visible to
     the vendor manager based on the assigned_vendor field.
     
     Args:
@@ -332,8 +332,8 @@ def initiate_survey_for_vendor(survey_name):
                 "error": _("Technical Survey is already initiated with status: {0}").format(survey.status)
             }
         
-        # Change status from Draft to Scheduled
-        survey.status = "Scheduled"
+        # Change status from Draft to Assigned
+        survey.status = "Assigned"
         
         # Ensure assigned_vendor is preserved
         survey.assigned_vendor = original_vendor
@@ -357,7 +357,7 @@ def initiate_survey_for_vendor(survey_name):
         return {
             "success": True,
             "vendor_company": original_vendor,
-            "message": _("Technical Survey initiated for vendor {0}. Status changed to Scheduled.").format(
+            "message": _("Technical Survey initiated for vendor {0}. Status changed to Assigned.").format(
                 original_vendor
             )
         }

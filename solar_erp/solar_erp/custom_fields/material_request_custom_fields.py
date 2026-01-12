@@ -15,20 +15,20 @@ def create_material_request_custom_fields():
 	Create custom fields for Material Request to track consolidation status
 	
 	Fields:
-	- consolidated_for_planning: Check field to mark MR as consolidated
+	- custom_consolidated: Check field to mark MR as consolidated
 	"""
 	
 	custom_fields = {
 		"Material Request": [
 			{
-				"fieldname": "consolidated_for_planning",
-				"label": "Consolidated for Planning",
+				"fieldname": "custom_consolidated",
+				"label": "Consolidated",
 				"fieldtype": "Check",
 				"default": "0",
 				"insert_after": "status",
-				"read_only": 0,  # CHANGED: Must be 0 so checkbox is visible
+				"read_only": 0,
 				"description": "Indicates if this Material Request has been consolidated in a Procurement Consolidation document",
-				"allow_on_submit": 1,  # Allow updating after submission
+				"allow_on_submit": 0,  # Field is read-only on submitted documents
 				"no_copy": 1
 			}
 		]

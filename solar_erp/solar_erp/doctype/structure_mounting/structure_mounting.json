@@ -91,7 +91,7 @@
    "description": "Auto-created when Structure Mounting is approved",
    "fieldname": "linked_panel_installation",
    "fieldtype": "Link",
-   "label": "Linked Panel Installation",
+   "label": "Linked Project Installation",
    "options": "Project Installation",
    "read_only": 1
   },

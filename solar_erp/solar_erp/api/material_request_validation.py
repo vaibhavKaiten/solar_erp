@@ -1,5 +1,10 @@
 # Copyright (c) 2025, KaitenSoftware
 # Material Request Validation for Solar ERP
+# 
+# ⚠️ NOTICE: The validate_material_request function has been DISABLED
+# The hard lock preventing manual Material Request creation has been removed
+# as per user requirement on 2026-01-10
+# Hook registration in hooks.py has been commented out
 # Blocks manual creation of Material Requests for Sales Order shortages
 
 import frappe

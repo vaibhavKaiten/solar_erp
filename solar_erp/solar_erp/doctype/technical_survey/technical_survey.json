@@ -1,850 +1,869 @@
 {
- "actions": [],
- "allow_rename": 1,
- "autoname": "naming_series:",
- "creation": "2025-12-23 10:00:00",
- "doctype": "DocType",
- "engine": "InnoDB",
- "field_order": [
-  "naming_series",
-  "references_section",
-  "job_file",
-  "lead",
-  "project",
-  "territory",
-  "status",
-  "workflow_reason",
-  "lead_snapshot_section",
-  "customer_name",
-  "mobile_no",
-  "city",
-  "column_break_lead_1",
-  "google_map_link",
-  "latitude",
-  "longitude",
-  "assignment_section",
-  "assigned_internal_user",
-  "assigned_vendor",
-  "scheduled_date",
-  "scheduled_slot",
-  "column_break_assignment_1",
-  "visit_type",
-  "checkin_time",
-  "checkout_time",
-  "visit_outcome",
-  "site_building_section",
-  "site_type",
-  "number_of_floors",
-  "roof_area_sqft",
-  "roof_type",
-  "column_break_site_1",
-  "area_suitability",
-  "direction_shading_remarks",
-  "roof_access_available",
-  "overall_feasibility_ok",
-  "site_risks",
-  "electrical_section",
-  "k_number",
-  "phase_type",
-  "existing_load_kw",
-  "required_load_kw",
-  "column_break_electrical_1",
-  "current_monthly_bill",
-  "sanctioned_load_kw",
-  "discom",
-  "connection_type",
-  "electricity_bill_attachment",
-  "site_visit_outputs_section",
-  "proposed_kw",
-  "proposed_structure",
-  "roof_height_m",
-  "column_break_outputs_1",
-  "electrical_panel_identified",
-  "shading_assessed",
-  "customer_signature_taken",
-  "site_visit_comments",
-  "technical_measurements_section",
-  "survey_date",
-  "survey_engineer",
-  "azimuth_deg",
-  "tilt_deg",
-  "column_break_measurements_1",
-  "shading_level",
-  "front_height_m",
-  "back_height_m",
-  "measurement_notes",
-  "system_sizing_section",
-  "proposed_system_size_kw",
-  "proposed_panel_count",
-  "proposed_inverter_kw",
-  "inverter_item",
-  "technical_documents_section",
-  "marked_roof_layout",
-  "sld_draft",
-  "technical_notes",
-  "photos_section",
-  "photos",
-  "review_section",
-  "reviewer",
-  "review_decision",
-  "review_comments",
-  "revisit_section",
-  "revisit_logs",
-  "survey_status",
-  "customer",
-  "section_break_customer_info",
-  "customer_mobile",
-  "column_break_customer",
-  "customer_email",
-  "customer_phone",
-  "customer_address",
-  "system_configuration_tab",
-  "proposed_system_section",
-  "proposed_system",
-  "bom_reference",
-  "column_break_sys_1",
-  "component_selection_section",
-  "selected_panel",
-  "panel_qty_from_bom",
-  "column_break_comp_1",
-  "selected_inverter",
-  "inverter_qty_from_bom",
-  "column_break_comp_2",
-  "selected_battery",
-  "battery_qty_from_bom",
-  "bom_other_items_section",
-  "bom_other_items",
-  "execution_requirements_section",
-  "subsidy_required",
-  "bank_loan_required"
- ],
- "fields": [
-  {
-   "default": "TS-.YYYY.-.#####",
-   "fieldname": "naming_series",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Series",
-   "options": "TS-.YYYY.-.#####",
-   "reqd": 1
-  },
-  {
-   "fieldname": "references_section",
-   "fieldtype": "Section Break",
-   "label": "References"
-  },
-  {
-   "default": "Pending",
-   "fieldname": "survey_status",
-   "fieldtype": "Select",
-   "label": "Survey Status",
-   "options": "Pending\nScheduled\nCompleted\nCancelled"
-  },
-  {
-   "fieldname": "job_file",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Job File",
-   "options": "Job File",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "job_file.customer",
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "label": "Customer",
-   "options": "Customer"
-  },
-  {
-   "fieldname": "section_break_customer_info",
-   "fieldtype": "Section Break",
-   "label": "Customer Information"
-  },
-  {
-   "fetch_from": "customer.mobile_no",
-   "fieldname": "customer_mobile",
-   "fieldtype": "Data",
-   "label": "Mobile Number",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_customer",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "customer.email_id",
-   "fieldname": "customer_email",
-   "fieldtype": "Data",
-   "label": "Email",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "customer.mobile_no",
-   "fieldname": "customer_phone",
-   "fieldtype": "Data",
-   "label": "Alternate Phone",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "lead.custom_address_line_1",
-   "fieldname": "customer_address",
-   "fieldtype": "Small Text",
-   "label": "Address",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "job_file.lead",
-   "fieldname": "lead",
-   "fieldtype": "Link",
-   "label": "Lead",
-   "options": "Lead",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "job_file.project",
-   "fieldname": "project",
-   "fieldtype": "Link",
-   "label": "Project",
-   "options": "Project",
-   "read_only": 1
-  },
-  {
-   "default": "Scheduled",
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Status",
-   "options": "Draft\nScheduled\nIn Progress\nOn Hold\nIn Review\nReopened\nClosed\nApproved",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "lead.territory",
-   "fieldname": "territory",
-   "fieldtype": "Link",
-   "label": "Territory",
-   "options": "Territory",
-   "read_only": 1
-  },
-  {
-   "depends_on": "eval:doc.status == 'Blocked' || doc.status == 'Rework' || doc.status == 'Approved' || doc.status == 'Closed'",
-   "fieldname": "workflow_reason",
-   "fieldtype": "Small Text",
-   "label": "Workflow Reason / Comments",
-   "read_only": 1
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "lead_snapshot_section",
-   "fieldtype": "Section Break",
-   "label": "Lead Snapshot"
-  },
-  {
-   "fetch_from": "lead.first_name",
-   "fieldname": "customer_name",
-   "fieldtype": "Data",
-   "label": "Customer Name",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "lead.mobile_no",
-   "fieldname": "mobile_no",
-   "fieldtype": "Data",
-   "label": "Mobile No",
-   "options": "Phone",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "lead.city",
-   "fieldname": "city",
-   "fieldtype": "Data",
-   "label": "City",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_lead_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "lead.custom_google_map_link",
-   "fieldname": "google_map_link",
-   "fieldtype": "Data",
-   "label": "Google Map Link",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "lead.custom_latitude",
-   "fieldname": "latitude",
-   "fieldtype": "Float",
-   "label": "Latitude",
-   "read_only": 1
-  },
-  {
-   "fetch_from": "lead.custom_longitude",
-   "fieldname": "longitude",
-   "fieldtype": "Float",
-   "label": "Longitude",
-   "read_only": 1
-  },
-  {
-   "fieldname": "assignment_section",
-   "fieldtype": "Section Break",
-   "label": "Assignment & Scheduling"
-  },
-  {
-   "fieldname": "assigned_internal_user",
-   "fieldtype": "Link",
-   "label": "Assigned Internal User",
-   "options": "User"
-  },
-  {
-   "description": "Auto-assigned based on territory",
-   "fieldname": "assigned_vendor",
-   "fieldtype": "Link",
-   "label": "Assigned Vendor",
-   "options": "Supplier"
-  },
-  {
-   "fieldname": "scheduled_date",
-   "fieldtype": "Date",
-   "label": "Scheduled Date"
-  },
-  {
-   "fieldname": "scheduled_slot",
-   "fieldtype": "Select",
-   "label": "Scheduled Slot",
-   "options": "Morning\nAfternoon\nEvening"
-  },
-  {
-   "fieldname": "column_break_assignment_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "visit_type",
-   "fieldtype": "Select",
-   "label": "Visit Type",
-   "options": "Initial\nRevisit\nTechnical"
-  },
-  {
-   "fieldname": "checkin_time",
-   "fieldtype": "Datetime",
-   "label": "Check-in Time"
-  },
-  {
-   "depends_on": "eval:doc.checkin_time",
-   "fieldname": "checkout_time",
-   "fieldtype": "Datetime",
-   "label": "Check-out Time"
-  },
-  {
-   "fieldname": "visit_outcome",
-   "fieldtype": "Select",
-   "label": "Visit Outcome",
-   "options": "Successful\nReschedule\nCustomer Not Available\nNot Feasible"
-  },
-  {
-   "fieldname": "site_building_section",
-   "fieldtype": "Section Break",
-   "label": "Site & Building"
-  },
-  {
-   "fieldname": "site_type",
-   "fieldtype": "Select",
-   "label": "Site Type",
-   "options": "Residential\nCommercial\nIndustrial\nOther"
-  },
-  {
-   "fetch_from": "lead.custom_number_of_floors",
-   "fieldname": "number_of_floors",
-   "fieldtype": "Int",
-   "label": "Number of Floors"
-  },
-  {
-   "fetch_from": "lead.custom_roof_area_sqft",
-   "fieldname": "roof_area_sqft",
-   "fieldtype": "Float",
-   "label": "Roof Area (sqft)"
-  },
-  {
-   "fetch_from": "lead.custom_roof_type",
-   "fieldname": "roof_type",
-   "fieldtype": "Select",
-   "label": "Roof Type",
-   "options": "RCC\nTin Shed\nAsbestos\nMixed\nOther"
-  },
-  {
-   "fieldname": "column_break_site_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "lead.custom_area_suitability",
-   "fieldname": "area_suitability",
-   "fieldtype": "Select",
-   "label": "Area Suitability",
-   "options": "Yes\nNo"
-  },
-  {
-   "fetch_from": "lead.custom_direction_shading_remarks",
-   "fieldname": "direction_shading_remarks",
-   "fieldtype": "Small Text",
-   "label": "Direction/Shading Remarks"
-  },
-  {
-   "default": "0",
-   "fieldname": "roof_access_available",
-   "fieldtype": "Check",
-   "label": "Roof Access Available"
-  },
-  {
-   "default": "0",
-   "fieldname": "overall_feasibility_ok",
-   "fieldtype": "Check",
-   "label": "Overall Feasibility OK"
-  },
-  {
-   "fieldname": "site_risks",
-   "fieldtype": "Small Text",
-   "label": "Site Risks"
-  },
-  {
-   "fieldname": "electrical_section",
-   "fieldtype": "Section Break",
-   "label": "Electrical"
-  },
-  {
-   "fetch_from": "lead.custom_k_number",
-   "fieldname": "k_number",
-   "fieldtype": "Data",
-   "label": "K Number",
-   "read_only": 1
-  },
-  {
-   "fieldname": "phase_type",
-   "fieldtype": "Select",
-   "label": "Phase Type",
-   "options": "Single Phase\nThree Phase"
-  },
-  {
-   "fetch_from": "lead.custom_existing_load_kw",
-   "fieldname": "existing_load_kw",
-   "fieldtype": "Float",
-   "label": "Existing Load (kW)"
-  },
-  {
-   "fetch_from": "lead.custom_required_load_kw",
-   "fieldname": "required_load_kw",
-   "fieldtype": "Float",
-   "label": "Required Load (kW)"
-  },
-  {
-   "fieldname": "column_break_electrical_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "lead.custom_current_monthly_bill",
-   "fieldname": "current_monthly_bill",
-   "fieldtype": "Currency",
-   "label": "Current Monthly Bill"
-  },
-  {
-   "fetch_from": "lead.custom_proposed_system",
-   "fieldname": "sanctioned_load_kw",
-   "fieldtype": "Data",
-   "label": "Sanctioned Load (kW)"
-  },
-  {
-   "fieldname": "discom",
-   "fieldtype": "Data",
-   "label": "DISCOM"
-  },
-  {
-   "fieldname": "connection_type",
-   "fieldtype": "Select",
-   "label": "Connection Type",
-   "options": "Domestic\nCommercial\nIndustrial\nOther"
-  },
-  {
-   "fieldname": "electricity_bill_attachment",
-   "fieldtype": "Attach",
-   "label": "Electricity Bill Attachment"
-  },
-  {
-   "fieldname": "site_visit_outputs_section",
-   "fieldtype": "Section Break",
-   "label": "Site Visit Outputs"
-  },
-  {
-   "fetch_from": "lead.custom_proposed_system",
-   "fieldname": "proposed_kw",
-   "fieldtype": "Data",
-   "label": "Proposed kW"
-  },
-  {
-   "fieldname": "proposed_structure",
-   "fieldtype": "Select",
-   "label": "Proposed Structure",
-   "options": "Fixed\nElevated\nBallasted\nOther"
-  },
-  {
-   "fieldname": "roof_height_m",
-   "fieldtype": "Float",
-   "label": "Roof Height (m)"
-  },
-  {
-   "fieldname": "column_break_outputs_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "electrical_panel_identified",
-   "fieldtype": "Check",
-   "label": "Electrical Panel Identified"
-  },
-  {
-   "default": "0",
-   "fieldname": "shading_assessed",
-   "fieldtype": "Check",
-   "label": "Shading Assessed"
-  },
-  {
-   "default": "0",
-   "fieldname": "customer_signature_taken",
-   "fieldtype": "Check",
-   "label": "Customer Signature Taken"
-  },
-  {
-   "fieldname": "site_visit_comments",
-   "fieldtype": "Text",
-   "label": "Site Visit Comments"
-  },
-  {
-   "fieldname": "technical_measurements_section",
-   "fieldtype": "Section Break",
-   "label": "Technical Measurements"
-  },
-  {
-   "fieldname": "survey_date",
-   "fieldtype": "Date",
-   "label": "Survey Start Date",
-   "read_only_depends_on": "eval:doc.survey_date"
-  },
-  {
-   "fieldname": "survey_engineer",
-   "fieldtype": "Link",
-   "label": "Survey Engineer",
-   "options": "User"
-  },
-  {
-   "fieldname": "azimuth_deg",
-   "fieldtype": "Float",
-   "label": "Azimuth (deg)"
-  },
-  {
-   "fieldname": "tilt_deg",
-   "fieldtype": "Float",
-   "label": "Tilt (deg)"
-  },
-  {
-   "fieldname": "column_break_measurements_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "shading_level",
-   "fieldtype": "Select",
-   "label": "Shading Level",
-   "options": "None\nLow\nMedium\nHigh"
-  },
-  {
-   "fieldname": "front_height_m",
-   "fieldtype": "Float",
-   "label": "Front Height (m)"
-  },
-  {
-   "fieldname": "back_height_m",
-   "fieldtype": "Float",
-   "label": "Back Height (m)"
-  },
-  {
-   "fieldname": "measurement_notes",
-   "fieldtype": "Small Text",
-   "label": "Measurement Notes"
-  },
-  {
-   "fieldname": "system_sizing_section",
-   "fieldtype": "Section Break",
-   "label": "System Sizing"
-  },
-  {
-   "fieldname": "proposed_system_size_kw",
-   "fieldtype": "Float",
-   "label": "Proposed System Size (kW)"
-  },
-  {
-   "fieldname": "proposed_panel_count",
-   "fieldtype": "Int",
-   "label": "Proposed Panel Count"
-  },
-  {
-   "fieldname": "proposed_inverter_kw",
-   "fieldtype": "Float",
-   "label": "Proposed Inverter (kW)"
-  },
-  {
-   "fieldname": "inverter_item",
-   "fieldtype": "Link",
-   "label": "Inverter Item",
-   "options": "Item"
-  },
-  {
-   "fieldname": "technical_documents_section",
-   "fieldtype": "Section Break",
-   "label": "Technical Documents"
-  },
-  {
-   "fieldname": "marked_roof_layout",
-   "fieldtype": "Attach",
-   "label": "Marked Roof Layout"
-  },
-  {
-   "fieldname": "sld_draft",
-   "fieldtype": "Attach",
-   "label": "SLD Draft"
-  },
-  {
-   "fieldname": "technical_notes",
-   "fieldtype": "Text",
-   "label": "Technical Notes"
-  },
-  {
-   "fieldname": "system_configuration_tab",
-   "fieldtype": "Tab Break",
-   "label": "System Configuration"
-  },
-  {
-   "fieldname": "proposed_system_section",
-   "fieldtype": "Section Break",
-   "label": "Proposed System"
-  },
-  {
-   "fetch_from": "lead.custom_proposed_system",
-   "fetch_if_empty": 1,
-   "fieldname": "proposed_system",
-   "fieldtype": "Link",
-   "label": "Proposed System (kW / Tier)",
-   "options": "Item"
-  },
-  {
-   "fieldname": "bom_reference",
-   "fieldtype": "Link",
-   "label": "BOM Reference",
-   "options": "BOM",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_sys_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "component_selection_section",
-   "fieldtype": "Section Break",
-   "label": "Component Selection"
-  },
-  {
-   "fieldname": "selected_panel",
-   "fieldtype": "Link",
-   "label": "Panel",
-   "options": "Item"
-  },
-  {
-   "fieldname": "panel_qty_from_bom",
-   "fieldtype": "Float",
-   "label": "Panel Qty (BOM)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_comp_1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "selected_inverter",
-   "fieldtype": "Link",
-   "label": "Inverter",
-   "options": "Item"
-  },
-  {
-   "fieldname": "inverter_qty_from_bom",
-   "fieldtype": "Float",
-   "label": "Inverter Qty (BOM)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_comp_2",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "selected_battery",
-   "fieldtype": "Link",
-   "label": "Battery",
-   "options": "Item"
-  },
-  {
-   "fieldname": "battery_qty_from_bom",
-   "fieldtype": "Float",
-   "label": "Battery Qty (BOM)",
-   "read_only": 1
-  },
-  {
-   "fieldname": "bom_other_items_section",
-   "fieldtype": "Section Break",
-   "label": "BOM Items (Editable)"
-  },
-  {
-   "fieldname": "bom_other_items",
-   "fieldtype": "Table",
-   "label": "Other BOM Items",
-   "options": "Technical BOM Item"
-  },
-  {
-   "fieldname": "execution_requirements_section",
-   "fieldtype": "Section Break",
-   "label": "Execution Requirements"
-  },
-  {
-   "default": "0",
-   "fieldname": "subsidy_required",
-   "fieldtype": "Check",
-   "label": "Subsidy Required"
-  },
-  {
-   "default": "0",
-   "fieldname": "bank_loan_required",
-   "fieldtype": "Check",
-   "label": "Bank Loan Required"
-  },
-  {
-   "fieldname": "photos_section",
-   "fieldtype": "Section Break",
-   "label": "Photos"
-  },
-  {
-   "fieldname": "photos",
-   "fieldtype": "Table",
-   "label": "Photos",
-   "options": "Photo Log"
-  },
-  {
-   "fieldname": "review_section",
-   "fieldtype": "Section Break",
-   "label": "Review & Approval"
-  },
-  {
-   "fieldname": "reviewer",
-   "fieldtype": "Link",
-   "label": "Reviewer",
-   "options": "User"
-  },
-  {
-   "fieldname": "review_decision",
-   "fieldtype": "Select",
-   "label": "Review Decision",
-   "options": "Approved\nRework"
-  },
-  {
-   "fieldname": "review_comments",
-   "fieldtype": "Small Text",
-   "label": "Review Comments"
-  },
-  {
-   "fieldname": "revisit_section",
-   "fieldtype": "Section Break",
-   "label": "Revisit Logs"
-  },
-  {
-   "fieldname": "revisit_logs",
-   "fieldtype": "Table",
-   "label": "Revisit Logs",
-   "options": "Revisit Log"
-  }
- ],
- "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2026-01-06 18:09:18.744614",
- "modified_by": "Administrator",
- "module": "Solar ERP",
- "name": "Technical Survey",
- "naming_rule": "By \"Naming Series\" field",
- "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Vendor Executive",
-   "write": 1
-  },
-  {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Project Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Sales Executive"
-  },
-  {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Sales Manager"
-  },
-  {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Technical Survey Executive",
-   "write": 1
-  },
-  {
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Technical Survey Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
- "row_format": "Dynamic",
- "sort_field": "modified",
- "sort_order": "DESC",
- "states": [],
- "track_changes": 1
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "naming_series:",
+    "creation": "2025-12-23 10:00:00",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "naming_series",
+        "references_section",
+        "job_file",
+        "lead",
+        "project",
+        "territory",
+        "status",
+        "workflow_reason",
+        "lead_snapshot_section",
+        "customer_name",
+        "mobile_no",
+        "city",
+        "column_break_lead_1",
+        "google_map_link",
+        "latitude",
+        "longitude",
+        "assignment_section",
+        "assigned_internal_user",
+        "assigned_vendor",
+        "scheduled_date",
+        "scheduled_slot",
+        "column_break_assignment_1",
+        "visit_type",
+        "checkin_time",
+        "checkout_time",
+        "visit_outcome",
+        "site_building_section",
+        "site_type",
+        "number_of_floors",
+        "roof_area_sqft",
+        "roof_type",
+        "column_break_site_1",
+        "area_suitability",
+        "direction_shading_remarks",
+        "roof_access_available",
+        "overall_feasibility_ok",
+        "site_risks",
+        "electrical_section",
+        "k_number",
+        "phase_type",
+        "existing_load_kw",
+        "required_load_kw",
+        "column_break_electrical_1",
+        "current_monthly_bill",
+        "sanctioned_load_kw",
+        "discom",
+        "connection_type",
+        "electricity_bill_attachment",
+        "site_visit_outputs_section",
+        "proposed_kw",
+        "proposed_structure",
+        "roof_height_m",
+        "column_break_outputs_1",
+        "electrical_panel_identified",
+        "shading_assessed",
+        "customer_signature_taken",
+        "site_visit_comments",
+        "technical_measurements_section",
+        "survey_date",
+        "survey_engineer",
+        "azimuth_deg",
+        "tilt_deg",
+        "column_break_measurements_1",
+        "shading_level",
+        "front_height_m",
+        "back_height_m",
+        "measurement_notes",
+        "system_sizing_section",
+        "proposed_system_size_kw",
+        "proposed_panel_count",
+        "proposed_inverter_kw",
+        "inverter_item",
+        "technical_documents_section",
+        "marked_roof_layout",
+        "sld_draft",
+        "technical_notes",
+        "photos_section",
+        "photos",
+        "review_section",
+        "reviewer",
+        "review_decision",
+        "review_comments",
+        "revisit_section",
+        "revisit_logs",
+        "survey_status",
+        "customer",
+        "section_break_customer_info",
+        "customer_mobile",
+        "column_break_customer",
+        "customer_email",
+        "customer_phone",
+        "customer_address",
+        "system_configuration_tab",
+        "proposed_system_section",
+        "proposed_system",
+        "bom_reference",
+        "column_break_sys_1",
+        "component_selection_section",
+        "selected_panel",
+        "panel_qty_from_bom",
+        "column_break_comp_1",
+        "selected_inverter",
+        "inverter_qty_from_bom",
+        "column_break_comp_2",
+        "selected_battery",
+        "battery_qty_from_bom",
+        "bom_other_items_section",
+        "bom_other_items",
+        "execution_requirements_section",
+        "subsidy_required",
+        "bank_loan_required"
+    ],
+    "fields": [
+        {
+            "default": "TS-.YYYY.-.#####",
+            "fieldname": "naming_series",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Series",
+            "options": "TS-.YYYY.-.#####",
+            "reqd": 1
+        },
+        {
+            "fieldname": "references_section",
+            "fieldtype": "Section Break",
+            "label": "References"
+        },
+        {
+            "default": "Pending",
+            "fieldname": "survey_status",
+            "fieldtype": "Select",
+            "label": "Survey Status",
+            "options": "Pending\nScheduled\nCompleted\nCancelled"
+        },
+        {
+            "fieldname": "job_file",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "in_standard_filter": 1,
+            "label": "Job File",
+            "options": "Job File",
+            "reqd": 1
+        },
+        {
+            "fetch_from": "job_file.customer",
+            "fieldname": "customer",
+            "fieldtype": "Link",
+            "label": "Customer",
+            "options": "Customer"
+        },
+        {
+            "fieldname": "section_break_customer_info",
+            "fieldtype": "Section Break",
+            "label": "Customer Information"
+        },
+        {
+            "fetch_from": "customer.mobile_no",
+            "fieldname": "customer_mobile",
+            "fieldtype": "Data",
+            "label": "Mobile Number",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_customer",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fetch_from": "customer.email_id",
+            "fieldname": "customer_email",
+            "fieldtype": "Data",
+            "label": "Email",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "customer.mobile_no",
+            "fieldname": "customer_phone",
+            "fieldtype": "Data",
+            "label": "Alternate Phone",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "lead.custom_address_line_1",
+            "fieldname": "customer_address",
+            "fieldtype": "Small Text",
+            "label": "Address",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "job_file.lead",
+            "fieldname": "lead",
+            "fieldtype": "Link",
+            "label": "Lead",
+            "options": "Lead",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "job_file.project",
+            "fieldname": "project",
+            "fieldtype": "Link",
+            "label": "Project",
+            "options": "Project",
+            "read_only": 1
+        },
+        {
+            "default": "Draft",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Status",
+            "options": "Draft\nAssigned to Vendor\nIn Progress\nOn Hold\nIn Review\nCompleted\nApproved\nRejected",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "lead.territory",
+            "fieldname": "territory",
+            "fieldtype": "Link",
+            "label": "Territory",
+            "options": "Territory",
+            "read_only": 1
+        },
+        {
+            "depends_on": "eval:doc.status == 'Blocked' || doc.status == 'Rework' || doc.status == 'Approved' || doc.status == 'Closed'",
+            "fieldname": "workflow_reason",
+            "fieldtype": "Small Text",
+            "label": "Workflow Reason / Comments",
+            "read_only": 1
+        },
+        {
+            "collapsible": 1,
+            "fieldname": "lead_snapshot_section",
+            "fieldtype": "Section Break",
+            "label": "Lead Snapshot"
+        },
+        {
+            "fetch_from": "lead.first_name",
+            "fieldname": "customer_name",
+            "fieldtype": "Data",
+            "label": "Customer Name",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "lead.mobile_no",
+            "fieldname": "mobile_no",
+            "fieldtype": "Data",
+            "label": "Mobile No",
+            "options": "Phone",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "lead.city",
+            "fieldname": "city",
+            "fieldtype": "Data",
+            "label": "City",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_lead_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fetch_from": "lead.custom_google_map_link",
+            "fieldname": "google_map_link",
+            "fieldtype": "Data",
+            "label": "Google Map Link",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "lead.custom_latitude",
+            "fieldname": "latitude",
+            "fieldtype": "Float",
+            "label": "Latitude",
+            "read_only": 1
+        },
+        {
+            "fetch_from": "lead.custom_longitude",
+            "fieldname": "longitude",
+            "fieldtype": "Float",
+            "label": "Longitude",
+            "read_only": 1
+        },
+        {
+            "fieldname": "assignment_section",
+            "fieldtype": "Section Break",
+            "label": "Assignment & Scheduling"
+        },
+        {
+            "fieldname": "assigned_internal_user",
+            "fieldtype": "Link",
+            "label": "Assigned Internal User",
+            "options": "User"
+        },
+        {
+            "description": "Auto-assigned based on territory",
+            "fieldname": "assigned_vendor",
+            "fieldtype": "Link",
+            "label": "Assigned Vendor",
+            "options": "Supplier"
+        },
+        {
+            "fieldname": "scheduled_date",
+            "fieldtype": "Date",
+            "label": "Scheduled Date"
+        },
+        {
+            "fieldname": "scheduled_slot",
+            "fieldtype": "Select",
+            "label": "Scheduled Slot",
+            "options": "Morning\nAfternoon\nEvening"
+        },
+        {
+            "fieldname": "column_break_assignment_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "visit_type",
+            "fieldtype": "Select",
+            "label": "Visit Type",
+            "options": "Initial\nRevisit\nTechnical"
+        },
+        {
+            "fieldname": "checkin_time",
+            "fieldtype": "Datetime",
+            "label": "Check-in Time"
+        },
+        {
+            "depends_on": "eval:doc.checkin_time",
+            "fieldname": "checkout_time",
+            "fieldtype": "Datetime",
+            "label": "Check-out Time"
+        },
+        {
+            "fieldname": "visit_outcome",
+            "fieldtype": "Select",
+            "label": "Visit Outcome",
+            "options": "Successful\nReschedule\nCustomer Not Available\nNot Feasible"
+        },
+        {
+            "fieldname": "site_building_section",
+            "fieldtype": "Section Break",
+            "label": "Site & Building"
+        },
+        {
+            "fieldname": "site_type",
+            "fieldtype": "Select",
+            "label": "Site Type",
+            "options": "Residential\nCommercial\nIndustrial\nOther"
+        },
+        {
+            "fetch_from": "lead.custom_number_of_floors",
+            "fieldname": "number_of_floors",
+            "fieldtype": "Int",
+            "label": "Number of Floors"
+        },
+        {
+            "fetch_from": "lead.custom_roof_area_sqft",
+            "fieldname": "roof_area_sqft",
+            "fieldtype": "Float",
+            "label": "Roof Area (sqft)"
+        },
+        {
+            "fetch_from": "lead.custom_roof_type",
+            "fieldname": "roof_type",
+            "fieldtype": "Select",
+            "label": "Roof Type",
+            "options": "RCC\nTin Shed\nAsbestos\nMixed\nOther"
+        },
+        {
+            "fieldname": "column_break_site_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fetch_from": "lead.custom_area_suitability",
+            "fieldname": "area_suitability",
+            "fieldtype": "Select",
+            "label": "Area Suitability",
+            "options": "Yes\nNo"
+        },
+        {
+            "fetch_from": "lead.custom_direction_shading_remarks",
+            "fieldname": "direction_shading_remarks",
+            "fieldtype": "Small Text",
+            "label": "Direction/Shading Remarks"
+        },
+        {
+            "default": "0",
+            "fieldname": "roof_access_available",
+            "fieldtype": "Check",
+            "label": "Roof Access Available"
+        },
+        {
+            "default": "0",
+            "fieldname": "overall_feasibility_ok",
+            "fieldtype": "Check",
+            "label": "Overall Feasibility OK"
+        },
+        {
+            "fieldname": "site_risks",
+            "fieldtype": "Small Text",
+            "label": "Site Risks"
+        },
+        {
+            "fieldname": "electrical_section",
+            "fieldtype": "Section Break",
+            "label": "Electrical"
+        },
+        {
+            "fetch_from": "lead.custom_k_number",
+            "fieldname": "k_number",
+            "fieldtype": "Data",
+            "label": "K Number",
+            "read_only": 1
+        },
+        {
+            "fieldname": "phase_type",
+            "fieldtype": "Select",
+            "label": "Phase Type",
+            "options": "Single Phase\nThree Phase"
+        },
+        {
+            "fetch_from": "lead.custom_existing_load_kw",
+            "fieldname": "existing_load_kw",
+            "fieldtype": "Float",
+            "label": "Existing Load (kW)"
+        },
+        {
+            "fetch_from": "lead.custom_required_load_kw",
+            "fieldname": "required_load_kw",
+            "fieldtype": "Float",
+            "label": "Required Load (kW)"
+        },
+        {
+            "fieldname": "column_break_electrical_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fetch_from": "lead.custom_current_monthly_bill",
+            "fieldname": "current_monthly_bill",
+            "fieldtype": "Currency",
+            "label": "Current Monthly Bill"
+        },
+        {
+            "fetch_from": "lead.custom_proposed_system",
+            "fieldname": "sanctioned_load_kw",
+            "fieldtype": "Data",
+            "label": "Sanctioned Load (kW)"
+        },
+        {
+            "fieldname": "discom",
+            "fieldtype": "Data",
+            "label": "DISCOM"
+        },
+        {
+            "fieldname": "connection_type",
+            "fieldtype": "Select",
+            "label": "Connection Type",
+            "options": "Domestic\nCommercial\nIndustrial\nOther"
+        },
+        {
+            "fieldname": "electricity_bill_attachment",
+            "fieldtype": "Attach",
+            "label": "Electricity Bill Attachment"
+        },
+        {
+            "fieldname": "site_visit_outputs_section",
+            "fieldtype": "Section Break",
+            "label": "Site Visit Outputs"
+        },
+        {
+            "fetch_from": "lead.custom_proposed_system",
+            "fieldname": "proposed_kw",
+            "fieldtype": "Data",
+            "label": "Proposed kW"
+        },
+        {
+            "fieldname": "proposed_structure",
+            "fieldtype": "Select",
+            "label": "Proposed Structure",
+            "options": "Fixed\nElevated\nBallasted\nOther"
+        },
+        {
+            "fieldname": "roof_height_m",
+            "fieldtype": "Float",
+            "label": "Roof Height (m)"
+        },
+        {
+            "fieldname": "column_break_outputs_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "electrical_panel_identified",
+            "fieldtype": "Check",
+            "label": "Electrical Panel Identified"
+        },
+        {
+            "default": "0",
+            "fieldname": "shading_assessed",
+            "fieldtype": "Check",
+            "label": "Shading Assessed"
+        },
+        {
+            "default": "0",
+            "fieldname": "customer_signature_taken",
+            "fieldtype": "Check",
+            "label": "Customer Signature Taken"
+        },
+        {
+            "fieldname": "site_visit_comments",
+            "fieldtype": "Text",
+            "label": "Site Visit Comments"
+        },
+        {
+            "fieldname": "technical_measurements_section",
+            "fieldtype": "Section Break",
+            "label": "Technical Measurements"
+        },
+        {
+            "fieldname": "survey_date",
+            "fieldtype": "Date",
+            "label": "Survey Start Date",
+            "read_only_depends_on": "eval:doc.survey_date"
+        },
+        {
+            "fieldname": "survey_engineer",
+            "fieldtype": "Link",
+            "label": "Survey Engineer",
+            "options": "User"
+        },
+        {
+            "fieldname": "azimuth_deg",
+            "fieldtype": "Float",
+            "label": "Azimuth (deg)"
+        },
+        {
+            "fieldname": "tilt_deg",
+            "fieldtype": "Float",
+            "label": "Tilt (deg)"
+        },
+        {
+            "fieldname": "column_break_measurements_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "shading_level",
+            "fieldtype": "Select",
+            "label": "Shading Level",
+            "options": "None\nLow\nMedium\nHigh"
+        },
+        {
+            "fieldname": "front_height_m",
+            "fieldtype": "Float",
+            "label": "Front Height (m)"
+        },
+        {
+            "fieldname": "back_height_m",
+            "fieldtype": "Float",
+            "label": "Back Height (m)"
+        },
+        {
+            "fieldname": "measurement_notes",
+            "fieldtype": "Small Text",
+            "label": "Measurement Notes"
+        },
+        {
+            "fieldname": "system_sizing_section",
+            "fieldtype": "Section Break",
+            "label": "System Sizing"
+        },
+        {
+            "fieldname": "proposed_system_size_kw",
+            "fieldtype": "Float",
+            "label": "Proposed System Size (kW)"
+        },
+        {
+            "fieldname": "proposed_panel_count",
+            "fieldtype": "Int",
+            "label": "Proposed Panel Count"
+        },
+        {
+            "fieldname": "proposed_inverter_kw",
+            "fieldtype": "Float",
+            "label": "Proposed Inverter (kW)"
+        },
+        {
+            "fieldname": "inverter_item",
+            "fieldtype": "Link",
+            "label": "Inverter Item",
+            "options": "Item"
+        },
+        {
+            "fieldname": "technical_documents_section",
+            "fieldtype": "Section Break",
+            "label": "Technical Documents"
+        },
+        {
+            "fieldname": "marked_roof_layout",
+            "fieldtype": "Attach",
+            "label": "Marked Roof Layout"
+        },
+        {
+            "fieldname": "sld_draft",
+            "fieldtype": "Attach",
+            "label": "SLD Draft"
+        },
+        {
+            "fieldname": "technical_notes",
+            "fieldtype": "Text",
+            "label": "Technical Notes"
+        },
+        {
+            "fieldname": "system_configuration_tab",
+            "fieldtype": "Tab Break",
+            "label": "System Configuration"
+        },
+        {
+            "fieldname": "proposed_system_section",
+            "fieldtype": "Section Break",
+            "label": "Proposed System"
+        },
+        {
+            "fetch_from": "lead.custom_proposed_system",
+            "fetch_if_empty": 1,
+            "fieldname": "proposed_system",
+            "fieldtype": "Link",
+            "label": "Proposed System (kW / Tier)",
+            "options": "Item"
+        },
+        {
+            "fieldname": "bom_reference",
+            "fieldtype": "Link",
+            "label": "BOM Reference",
+            "options": "BOM",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_sys_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "component_selection_section",
+            "fieldtype": "Section Break",
+            "label": "Component Selection"
+        },
+        {
+            "fieldname": "selected_panel",
+            "fieldtype": "Link",
+            "label": "Panel",
+            "options": "Item"
+        },
+        {
+            "fieldname": "panel_qty_from_bom",
+            "fieldtype": "Float",
+            "label": "Panel Qty (BOM)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_comp_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "selected_inverter",
+            "fieldtype": "Link",
+            "label": "Inverter",
+            "options": "Item"
+        },
+        {
+            "fieldname": "inverter_qty_from_bom",
+            "fieldtype": "Float",
+            "label": "Inverter Qty (BOM)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_comp_2",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "selected_battery",
+            "fieldtype": "Link",
+            "label": "Battery",
+            "options": "Item"
+        },
+        {
+            "fieldname": "battery_qty_from_bom",
+            "fieldtype": "Float",
+            "label": "Battery Qty (BOM)",
+            "read_only": 1
+        },
+        {
+            "fieldname": "bom_other_items_section",
+            "fieldtype": "Section Break",
+            "label": "BOM Items (Editable)"
+        },
+        {
+            "fieldname": "bom_other_items",
+            "fieldtype": "Table",
+            "label": "Other BOM Items",
+            "options": "Technical BOM Item"
+        },
+        {
+            "fieldname": "execution_requirements_section",
+            "fieldtype": "Section Break",
+            "label": "Execution Requirements"
+        },
+        {
+            "default": "0",
+            "fieldname": "subsidy_required",
+            "fieldtype": "Check",
+            "label": "Subsidy Required"
+        },
+        {
+            "default": "0",
+            "fieldname": "bank_loan_required",
+            "fieldtype": "Check",
+            "label": "Bank Loan Required"
+        },
+        {
+            "fieldname": "photos_section",
+            "fieldtype": "Section Break",
+            "label": "Photos"
+        },
+        {
+            "fieldname": "photos",
+            "fieldtype": "Table",
+            "label": "Photos",
+            "options": "Photo Log"
+        },
+        {
+            "fieldname": "review_section",
+            "fieldtype": "Section Break",
+            "label": "Review & Approval"
+        },
+        {
+            "fieldname": "reviewer",
+            "fieldtype": "Link",
+            "label": "Reviewer",
+            "options": "User"
+        },
+        {
+            "fieldname": "review_decision",
+            "fieldtype": "Select",
+            "label": "Review Decision",
+            "options": "Approved\nRework"
+        },
+        {
+            "fieldname": "review_comments",
+            "fieldtype": "Small Text",
+            "label": "Review Comments"
+        },
+        {
+            "fieldname": "revisit_section",
+            "fieldtype": "Section Break",
+            "label": "Revisit Logs"
+        },
+        {
+            "fieldname": "revisit_logs",
+            "fieldtype": "Table",
+            "label": "Revisit Logs",
+            "options": "Revisit Log"
+        }
+    ],
+    "index_web_pages_for_search": 1,
+    "links": [],
+    "modified": "2026-01-06 18:09:18.744614",
+    "modified_by": "Administrator",
+    "module": "Solar ERP",
+    "name": "Technical Survey",
+    "naming_rule": "By \"Naming Series\" field",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Vendor Executive",
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Project Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Executive"
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager"
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Technical Survey Executive",
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Technical Survey Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Execution Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Vendor Manager",
+            "write": 1
+        }
+    ],
+    "row_format": "Dynamic",
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
 }

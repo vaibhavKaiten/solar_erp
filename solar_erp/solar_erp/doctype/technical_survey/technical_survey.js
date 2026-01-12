@@ -23,19 +23,21 @@ frappe.ui.form.on('Technical Survey', {
     },
 
     refresh: function (frm) {
-        // Use shared execution controller for action buttons
-        solar_erp.execution.set_status_indicator(frm);
-        solar_erp.execution.add_action_buttons(frm);
+        // Set status indicator
+        set_status_indicator(frm);
+
+        // Add workflow action buttons
+        add_workflow_action_buttons(frm);
 
         // Add View Quotation link if approved
         add_quotation_link(frm);
-        
+
         // Add Initiate Technical Survey button for System Manager/Administrator
         add_initiate_survey_button(frm);
-        
+
         // Filter assigned_internal_user to show only vendor executives from assigned vendor company
         if (frm.doc.assigned_vendor) {
-            frm.set_query('assigned_internal_user', function() {
+            frm.set_query('assigned_internal_user', function () {
                 return {
                     query: 'solar_erp.solar_erp.queries.get_vendor_executives',
                     filters: {
@@ -43,9 +45,9 @@ frappe.ui.form.on('Technical Survey', {
                     }
                 };
             });
-            
+
             // Also filter custom_technical_executive if it exists
-            frm.set_query('custom_technical_executive', function() {
+            frm.set_query('custom_technical_executive', function () {
                 return {
                     query: 'solar_erp.solar_erp.queries.get_vendor_executives',
                     filters: {
@@ -53,7 +55,7 @@ frappe.ui.form.on('Technical Survey', {
                     }
                 };
             });
-            
+
             // Make custom_technical_executive visible to vendor managers
             if (frappe.user.has_role('Vendor Manager')) {
                 frm.set_df_property('custom_technical_executive', 'hidden', 0);
@@ -105,11 +107,245 @@ function add_quotation_link(frm) {
 
 
 // =============================================================================
+// WORKFLOW ACTION BUTTONS
+// =============================================================================
+
+function add_workflow_action_buttons(frm) {
+    if (frm.is_new()) return;
+
+    frm.clear_custom_buttons();
+
+    const status = frm.doc.status;
+    const is_system_manager = frappe.user.has_role('System Manager');
+    const is_administrator = frappe.user.has_role('Administrator');
+    const is_vendor_executive = frappe.user.has_role('Vendor Executive');
+    const is_vendor_manager = frappe.user.has_role('Vendor Manager');
+    const is_execution_manager = frappe.user.has_role('Execution Manager');
+
+    // 1. Send to Vendor (Solar Company - System Manager)
+    if ((is_system_manager || is_administrator) && status === 'Draft' && frm.doc.assigned_vendor) {
+        frm.add_custom_button(__('Send to Vendor'), function () {
+            frappe.confirm(
+                __('Send this Technical Survey to vendor {0}?', [frm.doc.assigned_vendor]),
+                function () {
+                    frappe.call({
+                        method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.send_to_vendor',
+                        args: { docname: frm.doc.name },
+                        callback: function (r) {
+                            if (r.message && r.message.status === 'success') {
+                                frappe.show_alert({ message: r.message.message, indicator: 'green' });
+                                frm.reload_doc();
+                            }
+                        }
+                    });
+                }
+            );
+        }, __('Actions')).addClass('btn-primary');
+    }
+
+    // 2. Start (Vendor Executive)
+    if (is_vendor_executive && (status === 'Assigned' || status === 'Scheduled' || status === 'Reopened')) {
+        frm.add_custom_button(__('Start'), function () {
+            frappe.call({
+                method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.start_work',
+                args: { docname: frm.doc.name },
+                callback: function (r) {
+                    if (r.message && r.message.status === 'success') {
+                        frappe.show_alert({ message: r.message.message, indicator: 'green' });
+                        frm.reload_doc();
+                    }
+                }
+            });
+        }, __('Actions')).addClass('btn-primary');
+    }
+
+    // 3. Put on Hold (Vendor Executive/Manager)
+    if ((is_vendor_executive || is_vendor_manager) && (status === 'Assigned' || status === 'In Progress')) {
+        frm.add_custom_button(__('Put on Hold'), function () {
+            frappe.prompt({
+                fieldtype: 'Small Text',
+                label: __('Reason for Hold'),
+                fieldname: 'reason',
+                reqd: 1
+            }, function (values) {
+                frappe.call({
+                    method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.hold_work',
+                    args: {
+                        docname: frm.doc.name,
+                        reason: values.reason
+                    },
+                    callback: function (r) {
+                        if (r.message && r.message.status === 'success') {
+                            frappe.show_alert({ message: r.message.message, indicator: 'orange' });
+                            frm.reload_doc();
+                        }
+                    }
+                });
+            }, __('Put on Hold'), __('Submit'));
+        }, __('Actions')).addClass('btn-warning');
+    }
+
+    // 4. Submit (Vendor Executive)
+    if (is_vendor_executive && status === 'In Progress') {
+        frm.add_custom_button(__('Submit for Review'), function () {
+            frappe.confirm(
+                __('Submit this survey for review? You will not be able to edit after submission.'),
+                function () {
+                    frappe.call({
+                        method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.submit_survey',
+                        args: { docname: frm.doc.name },
+                        callback: function (r) {
+                            if (r.message && r.message.status === 'success') {
+                                frappe.show_alert({ message: r.message.message, indicator: 'green' });
+                                frm.reload_doc();
+                            }
+                        }
+                    });
+                }
+            );
+        }, __('Actions')).addClass('btn-success');
+    }
+
+    // 5. Complete (Vendor Manager)
+    if (is_vendor_manager && status === 'In Review') {
+        frm.add_custom_button(__('Complete'), function () {
+            frappe.confirm(
+                __('Mark this survey as completed?'),
+                function () {
+                    frappe.call({
+                        method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.complete_survey',
+                        args: { docname: frm.doc.name },
+                        callback: function (r) {
+                            if (r.message && r.message.status === 'success') {
+                                frappe.show_alert({ message: r.message.message, indicator: 'green' });
+                                frm.reload_doc();
+                            }
+                        }
+                    });
+                }
+            );
+        }, __('Actions')).addClass('btn-success');
+    }
+
+    // 6. Reject (Vendor Manager or Execution Manager)
+    if ((is_vendor_manager || is_execution_manager) && status !== 'Rejected' && status !== 'Approved') {
+        frm.add_custom_button(__('Reject'), function () {
+            frappe.prompt({
+                fieldtype: 'Small Text',
+                label: __('Reason for Rejection'),
+                fieldname: 'reason',
+                reqd: 1
+            }, function (values) {
+                frappe.call({
+                    method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.reject_survey',
+                    args: {
+                        docname: frm.doc.name,
+                        reason: values.reason
+                    },
+                    callback: function (r) {
+                        if (r.message && r.message.status === 'success') {
+                            frappe.show_alert({ message: r.message.message, indicator: 'red' });
+                            frm.reload_doc();
+                        }
+                    }
+                });
+            }, __('Reject Survey'), __('Reject'));
+        }, __('Actions')).addClass('btn-danger');
+    }
+
+    // 7. Rework (Vendor Manager or Execution Manager)
+    if ((is_vendor_manager || is_execution_manager) && (status === 'Completed' || status === 'Rejected' || status === 'In Review')) {
+        frm.add_custom_button(__('Rework'), function () {
+            frappe.prompt({
+                fieldtype: 'Small Text',
+                label: __('Reason for Rework'),
+                fieldname: 'reason',
+                reqd: 1
+            }, function (values) {
+                frappe.call({
+                    method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.rework_survey',
+                    args: {
+                        docname: frm.doc.name,
+                        reason: values.reason
+                    },
+                    callback: function (r) {
+                        if (r.message && r.message.status === 'success') {
+                            frappe.show_alert({ message: r.message.message, indicator: 'orange' });
+                            frm.reload_doc();
+                        }
+                    }
+                });
+            }, __('Request Rework'), __('Submit'));
+        }, __('Actions')).addClass('btn-warning');
+    }
+
+    // 8. Approve (Execution Manager)
+    if (is_execution_manager && status === 'Completed') {
+        frm.add_custom_button(__('Approve'), function () {
+            frappe.prompt({
+                fieldtype: 'Small Text',
+                label: __('Approval Comment'),
+                fieldname: 'comment',
+                reqd: 1
+            }, function (values) {
+                frappe.call({
+                    method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.approve_survey',
+                    args: {
+                        docname: frm.doc.name,
+                        comment: values.comment
+                    },
+                    callback: function (r) {
+                        if (r.message && r.message.status === 'success') {
+                            frappe.show_alert({ message: r.message.message, indicator: 'green' });
+
+                            // Show quotation creation notification
+                            if (r.message.quotation_created && r.message.quotation_name) {
+                                frappe.show_alert({
+                                    message: __('Quotation {0} created successfully. <a href="/app/quotation/{0}">Click to open</a>', [r.message.quotation_name]),
+                                    indicator: 'blue'
+                                }, 30);
+                            }
+
+                            frm.reload_doc();
+                        }
+                    }
+                });
+            }, __('Approve Survey'), __('Approve'));
+        }, __('Actions')).addClass('btn-success');
+    }
+}
+
+
+// =============================================================================
+// STATUS INDICATOR
+// =============================================================================
+
+function set_status_indicator(frm) {
+    const status_colors = {
+        'Draft': 'grey',
+        'Assigned': 'blue',
+        'In Progress': 'orange',
+        'On Hold': 'yellow',
+        'In Review': 'purple',
+        'Completed': 'cyan',
+        'Approved': 'green',
+        'Rejected': 'red',
+        'Scheduled': 'blue',
+        'Reopened': 'cyan',
+        'Closed': 'red'
+    };
+
+    const color = status_colors[frm.doc.status] || 'grey';
+    frm.page.set_indicator(frm.doc.status, color);
+}
+
+
+// =============================================================================
 // BOM FUNCTIONS (Keeping existing functionality)
 // =============================================================================
 
 // The old add_action_buttons and set_status_indicator are no longer needed
-// as we now use solar_erp.execution shared controller
+// as we now use custom workflow buttons
 
 function add_action_buttons(frm) {
     // DEPRECATED - Using solar_erp.execution.add_action_buttons instead
@@ -322,24 +558,6 @@ function add_action_buttons(frm) {
 }
 
 
-// =============================================================================
-// STATUS INDICATOR
-// =============================================================================
-
-function set_status_indicator(frm) {
-    const status_colors = {
-        'Scheduled': 'blue',
-        'In Progress': 'orange',
-        'On Hold': 'yellow',
-        'In Review': 'purple',
-        'Reopened': 'cyan',
-        'Closed': 'red',
-        'Approved': 'green'
-    };
-
-    const color = status_colors[frm.doc.status] || 'grey';
-    frm.page.set_indicator(frm.doc.status, color);
-}
 
 
 // =============================================================================
@@ -586,49 +804,49 @@ function add_initiate_survey_button(frm) {
      * Add "Initiate Technical Survey" button for System Manager and Administrator
      * This button initiates the survey so vendor company can see it
      */
-    
+
     console.log('=== Initiate Survey Button Debug ===');
     console.log('Status:', frm.doc.status);
     console.log('assigned_vendor:', frm.doc.assigned_vendor);
     console.log('lead:', frm.doc.lead);
-    
+
     // Only show for saved documents
     if (frm.is_new()) {
         console.log('Button hidden: Document is new');
         return;
     }
-    
+
     // Check if user has required roles
     const is_system_manager = frappe.user.has_role('System Manager');
     const is_administrator = frappe.user.has_role('Administrator');
-    
+
     console.log('is_system_manager:', is_system_manager);
     console.log('is_administrator:', is_administrator);
-    
+
     if (!is_system_manager && !is_administrator) {
         console.log('Button hidden: User does not have System Manager or Administrator role');
         return;
     }
-    
+
     // Only show if vendor is assigned (from Initiate Job)
     if (!frm.doc.assigned_vendor) {
         console.log('Button hidden: No assigned_vendor');
         return;
     }
-    
+
     // Only show if status is Draft (not yet initiated)
     if (frm.doc.status !== 'Draft') {
         console.log('Button hidden: Status is not Draft, current status:', frm.doc.status);
         return;
     }
-    
+
     console.log('✅ All conditions met - Adding button');
-    
+
     // Add the button
-    frm.add_custom_button(__('Initiate Technical Survey'), function() {
+    frm.add_custom_button(__('Initiate Technical Survey'), function () {
         frappe.confirm(
             __('This will initiate the Technical Survey and make it visible to vendor company <b>{0}</b>. The status will change to "Scheduled". Continue?', [frm.doc.assigned_vendor]),
-            function() {
+            function () {
                 // Call server-side method
                 frappe.call({
                     method: 'solar_erp.solar_erp.api.lead_vendor.initiate_survey_for_vendor',
@@ -637,7 +855,7 @@ function add_initiate_survey_button(frm) {
                     },
                     freeze: true,
                     freeze_message: __('Initiating Technical Survey...'),
-                    callback: function(r) {
+                    callback: function (r) {
                         if (r.message && r.message.success) {
                             frappe.show_alert({
                                 message: __('Technical Survey initiated for {0}', [r.message.vendor_company]),
@@ -652,7 +870,7 @@ function add_initiate_survey_button(frm) {
                             });
                         }
                     },
-                    error: function(r) {
+                    error: function (r) {
                         frappe.msgprint({
                             title: __('Error'),
                             message: __('Failed to initiate survey. Please try again.'),

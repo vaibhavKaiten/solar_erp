@@ -39,7 +39,7 @@ class StructureMounting(Document):
 #             self._previous_status = None
     
     def on_update(self):
-        """Trigger auto-creation of Panel Installation when approved"""
+        """Trigger auto-creation of Project Installation when approved"""
         previous_status = getattr(self, '_previous_status', None)
         
         # Check if status changed to Approved
@@ -47,38 +47,38 @@ class StructureMounting(Document):
             self.handle_approval()
     
     def handle_approval(self):
-        """Handle Structure Mounting approval - create Panel Installation and update status"""
+        """Handle Structure Mounting approval - create Project Installation and update status"""
         # Set structure completion status to Done
         frappe.db.set_value("Structure Mounting", self.name, "structure_completion_status", "Done", update_modified=False)
         
-        # Create Panel Installation if it doesn't exist
-        panel_installation = self.create_panel_installation_if_not_exists()
+        # Create Project Installation if it doesn't exist
+        project_installation = self.create_project_installation_if_not_exists()
         
-        # Link the Panel Installation
-        if panel_installation:
-            frappe.db.set_value("Structure Mounting", self.name, "linked_panel_installation", panel_installation.name, update_modified=False)
+        # Link the Project Installation
+        if project_installation:
+            frappe.db.set_value("Structure Mounting", self.name, "linked_project_installation", project_installation.name, update_modified=False)
         
         # Commit the transaction
         frappe.db.commit()
         
         # Log audit entry
-        self.log_approval_audit(panel_installation)
+        self.log_approval_audit(project_installation)
     
-    def create_panel_installation_if_not_exists(self):
-        """Create Panel Installation record if it doesn't exist for this Job File"""
-        # Check if Panel Installation already exists for this Job File
-        existing_pi = frappe.db.exists("Panel Installation", {"job_file": self.job_file})
+    def create_project_installation_if_not_exists(self):
+        """Create Project Installation record if it doesn't exist for this Job File"""
+        # Check if Project Installation already exists for this Job File
+        existing_pi = frappe.db.exists("Project Installation", {"job_file": self.job_file})
         
         if existing_pi:
             frappe.msgprint(
-                _("Panel Installation {0} already exists for Job File {1}").format(existing_pi, self.job_file),
+                _("Project Installation {0} already exists for Job File {1}").format(existing_pi, self.job_file),
                 alert=True
             )
-            return frappe.get_doc("Panel Installation", existing_pi)
+            return frappe.get_doc("Project Installation", existing_pi)
         
-        # Create new Panel Installation
-        panel_installation = frappe.get_doc({
-            "doctype": "Panel Installation",
+        # Create new Project Installation
+        project_installation = frappe.get_doc({
+            "doctype": "Project Installation",
             "job_file": self.job_file,
             "lead": self.lead,
             "project": self.project,
@@ -90,18 +90,18 @@ class StructureMounting(Document):
             "status": "Draft"
         })
         
-        panel_installation.flags.ignore_permissions = True
-        panel_installation.insert()
+        project_installation.flags.ignore_permissions = True
+        project_installation.insert()
         
         frappe.msgprint(
-            _("Panel Installation {0} created successfully").format(panel_installation.name),
+            _("Project Installation {0} created successfully").format(project_installation.name),
             alert=True,
             indicator="green"
         )
         
-        return panel_installation
+        return project_installation
     
-    def log_approval_audit(self, panel_installation=None):
+    def log_approval_audit(self, project_installation=None):
         """Log audit entry for Structure Mounting approval"""
         frappe.get_doc({
             "doctype": "Comment",
@@ -109,13 +109,13 @@ class StructureMounting(Document):
             "reference_doctype": "Structure Mounting",
             "reference_name": self.name,
             "content": _("Structure Mounting approved. Completion status set to Done.{0}").format(
-                _(" Panel Installation {0} created.").format(panel_installation.name) if panel_installation else ""
+                _(" Project Installation {0} created.").format(project_installation.name) if project_installation else ""
             )
         }).insert(ignore_permissions=True)
 
     @frappe.whitelist()
-    def fix_panel_installation_link(self):
-        """Manually trigger linking of Panel Installation"""
+    def fix_project_installation_link(self):
+        """Manually trigger linking of Project Installation"""
         if self.status != "Approved":
             frappe.throw(_("Can only fix link when status is Approved"))
         

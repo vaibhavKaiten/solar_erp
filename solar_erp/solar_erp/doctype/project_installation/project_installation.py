@@ -14,7 +14,7 @@ class ProjectInstallation(Document):
             # Allow only if created by system (ignore_permissions flag is set)
             if not self.flags.ignore_permissions:
                 frappe.throw(
-                    _("Panel Installation can only be created automatically when Structure Mounting is approved. "
+                    _("Project Installation can only be created automatically when Structure Mounting is approved. "
                       "Please approve the Structure Mounting record first."),
                     title=_("Manual Creation Not Allowed")
                 )
@@ -22,7 +22,7 @@ class ProjectInstallation(Document):
     def before_save(self):
         """Store previous status for comparison"""
         if not self.is_new():
-            self._previous_status = frappe.db.get_value("Panel Installation", self.name, "status")
+            self._previous_status = frappe.db.get_value("Project Installation", self.name, "status")
         else:
             self._previous_status = None
     
@@ -35,13 +35,13 @@ class ProjectInstallation(Document):
             self.handle_approval()
     
     def handle_approval(self):
-        """Handle Panel Installation approval - create Meter Installation"""
+        """Handle Project Installation approval - create Meter Installation"""
         # Create Meter Installation if it doesn't exist
         meter_installation = self.create_meter_installation_if_not_exists()
         
         # Link the Meter Installation
         if meter_installation:
-            frappe.db.set_value("Panel Installation", self.name, "linked_meter_installation", meter_installation.name, update_modified=False)
+            frappe.db.set_value("Project Installation", self.name, "linked_meter_installation", meter_installation.name, update_modified=False)
         
         # Commit the transaction
         frappe.db.commit()
@@ -84,13 +84,13 @@ class ProjectInstallation(Document):
         return meter_installation
     
     def log_approval_audit(self, meter_installation=None):
-        """Log audit entry for Panel Installation approval"""
+        """Log audit entry for Project Installation approval"""
         frappe.get_doc({
             "doctype": "Comment",
             "comment_type": "Info",
-            "reference_doctype": "Panel Installation",
+            "reference_doctype": "Project Installation",
             "reference_name": self.name,
-            "content": _("Panel Installation approved.{0}").format(
+            "content": _("Project Installation approved.{0}").format(
                 _(" Meter Installation {0} created.").format(meter_installation.name) if meter_installation else ""
             )
         }).insert(ignore_permissions=True)
@@ -99,14 +99,14 @@ class ProjectInstallation(Document):
 @frappe.whitelist()
 def start_work(docname):
     """Start work - transitions from Draft/Rework to In Progress"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status not in ["Draft", "Rework"]:
         frappe.throw(_("Can only start work when status is Draft or Rework"))
     
     # Check if user has the right role
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Executive"}) or
-            frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Manager"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Executive"}) or
+            frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Manager"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
         frappe.throw(_("You don't have permission to start this work"))
@@ -121,16 +121,16 @@ def start_work(docname):
 @frappe.whitelist()
 def submit_work(docname):
     """Submit work for review - transitions from In Progress to Ready for Review"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status != "In Progress":
         frappe.throw(_("Can only submit work when status is In Progress"))
     
     # Check if user has the right role (Executive only)
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Executive"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Executive"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only Panel Installation Executive can submit work for review"))
+        frappe.throw(_("Only Project Installation Executive can submit work for review"))
     
     doc.status = "Ready for Review"
     doc.save()
@@ -142,16 +142,16 @@ def submit_work(docname):
 @frappe.whitelist()
 def approve_work(docname, reason):
     """Approve work - transitions from Ready for Review to Approved"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status != "Ready for Review":
         frappe.throw(_("Can only approve when status is Ready for Review"))
     
     # Check if user has the right role (Manager only)
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Manager"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Manager"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only Panel Installation Manager can approve work"))
+        frappe.throw(_("Only Project Installation Manager can approve work"))
     
     if not reason or reason.strip() == "":
         frappe.throw(_("Please provide a reason for approval"))
@@ -170,16 +170,16 @@ def approve_work(docname, reason):
 @frappe.whitelist()
 def block_work(docname, reason):
     """Block work - transitions to Blocked status"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status not in ["In Progress", "Ready for Review"]:
         frappe.throw(_("Can only block when status is In Progress or Ready for Review"))
     
     # Check if user has the right role (Manager only)
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Manager"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Manager"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only Panel Installation Manager can block work"))
+        frappe.throw(_("Only Project Installation Manager can block work"))
     
     if not reason or reason.strip() == "":
         frappe.throw(_("Please provide a reason for blocking"))
@@ -195,16 +195,16 @@ def block_work(docname, reason):
 @frappe.whitelist()
 def request_rework(docname, reason):
     """Request rework - transitions from Ready for Review to Rework"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status != "Ready for Review":
         frappe.throw(_("Can only request rework when status is Ready for Review"))
     
     # Check if user has the right role (Manager only)
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Manager"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Manager"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only Panel Installation Manager can request rework"))
+        frappe.throw(_("Only Project Installation Manager can request rework"))
     
     if not reason or reason.strip() == "":
         frappe.throw(_("Please provide a reason for rework"))
@@ -223,16 +223,16 @@ def request_rework(docname, reason):
 @frappe.whitelist()
 def resume_work(docname, reason):
     """Resume work - transitions from Blocked to In Progress"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status != "Blocked":
         frappe.throw(_("Can only resume when status is Blocked"))
     
     # Check if user has the right role (Manager only)
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Manager"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Manager"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only Panel Installation Manager can resume work"))
+        frappe.throw(_("Only Project Installation Manager can resume work"))
     
     if not reason or reason.strip() == "":
         frappe.throw(_("Please provide a reason for resuming"))
@@ -248,16 +248,16 @@ def resume_work(docname, reason):
 @frappe.whitelist()
 def close_work(docname, reason):
     """Close work - transitions from Approved to Closed"""
-    doc = frappe.get_doc("Panel Installation", docname)
+    doc = frappe.get_doc("Project Installation", docname)
     
     if doc.status != "Approved":
         frappe.throw(_("Can only close when status is Approved"))
     
     # Check if user has the right role (Manager only)
-    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Panel Installation Manager"}) or
+    if not (frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Project Installation Manager"}) or
             "System Manager" in frappe.get_roles() or
             "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only Panel Installation Manager can close work"))
+        frappe.throw(_("Only Project Installation Manager can close work"))
     
     if not reason or reason.strip() == "":
         frappe.throw(_("Please provide a reason for closing"))

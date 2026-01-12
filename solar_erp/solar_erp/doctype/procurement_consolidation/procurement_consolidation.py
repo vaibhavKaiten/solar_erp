@@ -24,7 +24,7 @@ class ProcurementConsolidation(Document):
 		
 		CRITICAL BEHAVIOR (ATOMIC FETCH + CONSUME):
 		- Uses docstatus = 1 to identify approved Material Requests
-		- Uses consolidated_for_planning flag to prevent re-consumption
+		- Uses custom_consolidated flag to prevent re-consumption
 		- IMMEDIATELY marks each MR as consolidated after processing it
 		- Saves and commits each MR to database atomically
 		- Supports incremental fetching (adds to existing items)
@@ -33,9 +33,8 @@ class ProcurementConsolidation(Document):
 		For each Material Request:
 		1. Fetch MR data
 		2. Merge items into consolidation table
-		3. IMMEDIATELY mark MR as consolidated_for_planning = 1
-		4. SAVE the MR document to database
-		5. COMMIT the transaction
+		3. IMMEDIATELY mark MR as custom_consolidated = 1
+		4. SAVE and COMMIT the change
 		
 		This ensures one-time consumption even with concurrent button clicks.
 		
@@ -44,13 +43,13 @@ class ProcurementConsolidation(Document):
 		"""
 		
 		# Fetch eligible Material Requests
-		# CRITICAL FILTER: docstatus = 1 AND IFNULL(consolidated_for_planning, 0) = 0
+		# CRITICAL FILTER: docstatus = 1 AND IFNULL(custom_consolidated, 0) = 0
 		# This ensures ONLY approved and not-yet-consolidated MRs are fetched
 		material_requests = frappe.db.sql("""
 			SELECT name
 			FROM `tabMaterial Request`
 			WHERE docstatus = 1
-			AND IFNULL(consolidated_for_planning, 0) = 0
+			AND IFNULL(custom_consolidated, 0) = 0
 			ORDER BY creation ASC
 		""", as_dict=True)
 		
@@ -86,7 +85,7 @@ class ProcurementConsolidation(Document):
 				mr_doc = frappe.get_doc("Material Request", mr.name)
 				
 				# Double-check it hasn't been consolidated (race condition protection)
-				if mr_doc.consolidated_for_planning == 1:
+				if mr_doc.custom_consolidated == 1:
 					frappe.log_error(
 						f"Material Request {mr.name} was already consolidated (race condition detected)",
 						"Procurement Consolidation - Race Condition"
@@ -155,13 +154,13 @@ class ProcurementConsolidation(Document):
 				# CRITICAL ATOMIC STEP: Mark this Material Request as consolidated IMMEDIATELY
 				# This prevents it from being fetched again, even if button is clicked multiple times
 				
-				# IMPORTANT: Use frappe.db.set_value() instead of mr_doc.save()
-				# because submitted documents (docstatus=1) are READ-ONLY
-				# and cannot be saved with the .save() method
+				# Use frappe.db.set_value() to update the field
+				# Note: custom_consolidated has allow_on_submit=0, but we can still update it
+				# using db.set_value() because it bypasses the form-level restrictions
 				frappe.db.set_value(
 					"Material Request",
 					mr.name,
-					"consolidated_for_planning",
+					"custom_consolidated",
 					1,
 					update_modified=False  # Don't update modified timestamp
 				)

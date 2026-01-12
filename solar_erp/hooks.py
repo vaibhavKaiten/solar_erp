@@ -271,7 +271,8 @@ doc_events = {
         "on_submit": "solar_erp.solar_erp.api.bom_stock_reservation.on_purchase_receipt_submit"
     },
     "Material Request": {
-        "before_insert": "solar_erp.solar_erp.api.material_request_validation.validate_material_request",
+        # REMOVED: Hard lock on manual Material Request creation
+        # "before_insert": "solar_erp.solar_erp.api.material_request_validation.validate_material_request",
         "on_submit": "solar_erp.solar_erp.api.material_request_validation.on_material_request_submit"
     },
     "Purchase Order": {

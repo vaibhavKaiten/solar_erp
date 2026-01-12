@@ -192,8 +192,8 @@ def start_work(docname):
     """
     doc = frappe.get_doc("Technical Survey", docname)
     
-    if doc.status not in ["Scheduled", "Reopened"]:
-        frappe.throw(_("Can only start work when status is Scheduled or Reopened"))
+    if doc.status not in ["Assigned", "Scheduled", "Reopened"]:
+        frappe.throw(_("Can only start work when status is Assigned to Vendor, Scheduled, or Reopened"))
     
     # Check if user has the right role
     if not _has_executive_or_manager_role():
@@ -224,12 +224,12 @@ def hold_work(docname, reason):
     """
     doc = frappe.get_doc("Technical Survey", docname)
     
-    if doc.status not in ["Scheduled", "In Progress"]:
-        frappe.throw(_("Can only hold when status is Scheduled or In Progress"))
+    if doc.status not in ["Assigned", "In Progress"]:
+        frappe.throw(_("Can only hold when status is Assigned to Vendor or In Progress"))
     
-    # Check if user has the right role
-    if not _has_executive_role():
-        frappe.throw(_("Only Technical Survey Executive can put work on hold"))
+    # Check if user has Vendor Executive or Vendor Manager role
+    if not (_has_vendor_executive_role() or _has_vendor_manager_role()):
+        frappe.throw(_("Only Vendor Executive or Vendor Manager can put work on hold"))
     
     if not reason or reason.strip() == "":
         frappe.throw(_("Please provide a reason for putting on hold"))
@@ -288,18 +288,18 @@ def submit_survey(docname):
 @frappe.whitelist()
 def approve_survey(docname, comment):
     """
-    Approve survey - Manager action
-    From: In Review
+    Approve survey - Execution Manager action
+    From: Completed
     To: Approved
     """
     doc = frappe.get_doc("Technical Survey", docname)
     
-    if doc.status != "In Review":
-        frappe.throw(_("Can only approve when status is In Review"))
+    if doc.status != "Completed":
+        frappe.throw(_("Can only approve when status is Completed"))
     
-    # Check if user has the right role (Manager only)
-    if not _has_manager_role():
-        frappe.throw(_("Only Technical Survey Manager can approve"))
+    # Check if user has Execution Manager role
+    if not _has_execution_manager_role():
+        frappe.throw(_("Only Execution Manager can approve"))
     
     if not comment or comment.strip() == "":
         frappe.throw(_("Please provide a comment for approval"))
@@ -391,6 +391,123 @@ def reopen_survey(docname, reason):
 
 
 # =============================================================================
+# NEW WORKFLOW ACTIONS
+# =============================================================================
+
+@frappe.whitelist()
+def send_to_vendor(docname):
+    """
+    Send to Vendor - Solar Company action
+    From: Draft
+    To: Assigned to Vendor
+    """
+    doc = frappe.get_doc("Technical Survey", docname)
+    
+    if doc.status != "Draft":
+        frappe.throw(_("Can only send to vendor when status is Draft"))
+    
+    # Check if user has System Manager role
+    if not ("System Manager" in frappe.get_roles() or "Administrator" in frappe.get_roles()):
+        frappe.throw(_("Only System Manager can send to vendor"))
+    
+    if not doc.assigned_vendor:
+        frappe.throw(_("Please assign a vendor before sending"))
+    
+    doc.status = "Assigned"
+    doc.flags.ignore_permissions = True
+    doc.flags.from_action_method = True
+    doc.save()
+    frappe.db.commit()
+    
+    _log_status_change(doc.name, f"Sent to vendor: {doc.assigned_vendor}", "Assigned")
+    
+    return {"status": "success", "message": _("Technical Survey sent to vendor successfully")}
+
+
+@frappe.whitelist()
+def complete_survey(docname):
+    """
+    Complete survey - Vendor Manager action
+    From: In Review
+    To: Completed
+    """
+    doc = frappe.get_doc("Technical Survey", docname)
+    
+    if doc.status != "In Review":
+        frappe.throw(_("Can only complete when status is In Review"))
+    
+    # Check if user has Vendor Manager role
+    if not _has_vendor_manager_role():
+        frappe.throw(_("Only Vendor Manager can mark as complete"))
+    
+    doc.status = "Completed"
+    doc.flags.ignore_permissions = True
+    doc.flags.from_action_method = True
+    doc.save()
+    frappe.db.commit()
+    
+    _log_status_change(doc.name, "Vendor work completed", "Completed")
+    
+    return {"status": "success", "message": _("Survey marked as completed")}
+
+
+@frappe.whitelist()
+def reject_survey(docname, reason):
+    """
+    Reject survey - Vendor Manager or Execution Manager action
+    From: Any status
+    To: Rejected
+    """
+    doc = frappe.get_doc("Technical Survey", docname)
+    
+    # Check if user has Vendor Manager or Execution Manager role
+    if not (_has_vendor_manager_role() or _has_execution_manager_role()):
+        frappe.throw(_("Only Vendor Manager or Execution Manager can reject"))
+    
+    if not reason or reason.strip() == "":
+        frappe.throw(_("Please provide a reason for rejection"))
+    
+    doc.status = "Rejected"
+    doc.workflow_reason = reason
+    doc.flags.ignore_permissions = True
+    doc.flags.from_action_method = True
+    doc.save()
+    frappe.db.commit()
+    
+    _log_status_change(doc.name, reason, "Rejected")
+    
+    return {"status": "success", "message": _("Survey rejected")}
+
+
+@frappe.whitelist()
+def rework_survey(docname, reason):
+    """
+    Rework survey - Vendor Manager or Execution Manager action
+    From: Any status
+    To: In Progress
+    """
+    doc = frappe.get_doc("Technical Survey", docname)
+    
+    # Check if user has Vendor Manager or Execution Manager role
+    if not (_has_vendor_manager_role() or _has_execution_manager_role()):
+        frappe.throw(_("Only Vendor Manager or Execution Manager can request rework"))
+    
+    if not reason or reason.strip() == "":
+        frappe.throw(_("Please provide a reason for rework"))
+    
+    doc.status = "In Progress"
+    doc.workflow_reason = reason
+    doc.flags.ignore_permissions = True
+    doc.flags.from_action_method = True
+    doc.save()
+    frappe.db.commit()
+    
+    _log_status_change(doc.name, reason, "In Progress (Rework)")
+    
+    return {"status": "success", "message": _("Survey sent back for rework")}
+
+
+# =============================================================================
 # HELPER FUNCTIONS
 # =============================================================================
 
@@ -415,6 +532,33 @@ def _has_manager_role():
 def _has_executive_or_manager_role():
     """Check if current user has Executive or Manager role"""
     return _has_executive_role() or _has_manager_role()
+
+
+def _has_vendor_executive_role():
+    """Check if current user has Vendor Executive role"""
+    return (
+        frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Vendor Executive"}) or
+        "System Manager" in frappe.get_roles() or
+        "Administrator" in frappe.get_roles()
+    )
+
+
+def _has_vendor_manager_role():
+    """Check if current user has Vendor Manager role"""
+    return (
+        frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Vendor Manager"}) or
+        "System Manager" in frappe.get_roles() or
+        "Administrator" in frappe.get_roles()
+    )
+
+
+def _has_execution_manager_role():
+    """Check if current user has Execution Manager role"""
+    return (
+        frappe.db.exists("Has Role", {"parent": frappe.session.user, "role": "Execution Manager"}) or
+        "System Manager" in frappe.get_roles() or
+        "Administrator" in frappe.get_roles()
+    )
 
 
 def _log_status_change(docname, comment, new_status):
