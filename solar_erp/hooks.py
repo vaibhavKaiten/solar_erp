@@ -21,47 +21,74 @@ app_license = "mit"
 # 	}
 # ]
 
+SOLAR_ERP_DOCTYPES = [
+    "Bank Loan Application",
+    "Battery BOM Item",
+    "Consolidated Procurement Item",
+    "Discom Process",
+    "Inverter BOM Item",
+    "Job File",
+    "Material Line",
+    "Meter Commissioning",
+    "Meter Installation",
+    "Panel BOM Item",
+    "Photo Log",
+    "Procurement Consolidation",
+    "Procurement Shortage Log",
+    "Project Installation",
+    "Revisit Log",
+    "Sales Order BOM Item",
+    "Stock Reservation Log",
+    "Structure Mounting",
+    "Subsidy Application",
+    "Supplier Territory Child Table",
+    "Technical BOM Item",
+    "Technical Survey",
+    "Technical Survey BOM Item",
+    "Verification Handover",
+]
+
 # hooks.py
 
 fixtures = [
     
-    {
-        "dt": "Customize Form",
-        "filters": [
-            ["module", "=", "Solar ERP"]
-        ]
-    },
+    
+
+    # ✅ Custom Fields attached to Solar ERP doctypes
     {
         "dt": "Custom Field",
         "filters": [
-            ["module", "=", "Solar ERP"]
+            ["dt", "in", SOLAR_ERP_DOCTYPES]
         ]
     },
 
+    # ✅ Client Scripts tied to Solar ERP doctypes
     {
         "dt": "Client Script",
         "filters": [
-            ["module", "=", "Solar ERP"]
+            ["dt", "in", SOLAR_ERP_DOCTYPES]
         ]
     },
 
+    # ✅ Server Scripts tied to Solar ERP doctypes
     {
         "dt": "Server Script",
         "filters": [
-            ["module", "=", "Solar ERP"]
+            ["reference_doctype", "in", SOLAR_ERP_DOCTYPES]
         ]
     },
 
-     {"dt": "Workflow"},
+    {"dt": "Workflow"},
     {"dt": "Workflow State"},
     {"dt": "Workflow Action"},
 
     {
-        "dt": "Property Setter",
-        "filters": [
-            ["module", "=", "Solar ERP"]
-        ]
-    },
+    "dt": "Property Setter",
+    "filters": [
+        ["doc_type", "in", SOLAR_ERP_DOCTYPES]
+    ]
+},
+
 
     {"dt": "Role"},
     # {
