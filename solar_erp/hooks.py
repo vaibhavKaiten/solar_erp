@@ -78,9 +78,9 @@ fixtures = [
         ]
     },
 
-    {"dt": "Workflow"},
-    {"dt": "Workflow State"},
-    {"dt": "Workflow Action"},
+    # {"dt": "Workflow"},
+    # {"dt": "Workflow State"},
+    # {"dt": "Workflow Action"},
 
     {
     "dt": "Property Setter",
@@ -90,48 +90,10 @@ fixtures = [
 },
 
 
-    {"dt": "Role"},
-    # {
-    #     "dt": "Role",
-    #     "filters": [
-    #         ["name", "in", [
-    #             "Sales Executive",
-    #             "Sales Manager",
-    #             "Vendor Executive",
-    #             "Project Manager",
-    #             "Inventory Manager",
-    #             "Purchase Manager",
-    #             "Accounts Manager",
-    #             "Site Visit Manager",
-    #             "Site Visit Vendor Executive",
-    #             "Vendor Manager",
-    #             "Technical Visit Manager",
-    #             "Installation Manager",
-    #             "Loan Process Executive",
-    #             "Subsidy Executive",
-    #             "Installation Vendor Manager",
-    #             "Installation Vendor Executive",
-    #             "Technical Visit Vendor Manager",
-    #             "Site Visit Vendor Manager",
-    #             "Discom Executive",
-    #             "Vendor Field Staff",
-    #             "Service Head",
-    #             "Service Executive",
-    #             "Technical Visit Vendor Executive",
-    #             "Lead Manager",
-    #             "Lead Executive",
-    #             "Panel Installation Executive",
-    #             "Panel Installation Manager",
-    #             "Meter Installation Executive",
-    #             "Meter Installation Manager",
-    #             "Technical Survey Executive",
-    #             "Technical Survey Manager"
-    #         ]]
-    #     ]
-    # },
+    # {"dt": "Role"},
+    
 
-    # Lead customizations from separate JSON file
-    # "solar_erp/solar_project/custom/lead.json"
+    
 ]
 
 
