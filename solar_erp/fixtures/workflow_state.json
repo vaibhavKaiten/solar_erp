@@ -2,6 +2,42 @@
  {
   "docstatus": 0,
   "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:55.009451",
+  "name": "Vandor Approved",
+  "style": "",
+  "workflow_state_name": "Vandor Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:55.018793",
+  "name": "Approve By Vandor",
+  "style": "",
+  "workflow_state_name": "Approve By Vandor"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-01-11 20:37:30.932723",
+  "name": "Send to Vendor",
+  "style": "",
+  "workflow_state_name": "Send to Vendor"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2026-01-12 17:03:00.886515",
+  "name": "Assigned to Vendor",
+  "style": "",
+  "workflow_state_name": "Assigned to Vendor"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
   "icon": "question-sign",
   "modified": "2025-11-09 04:24:29.130630",
   "name": "Pending",
@@ -219,24 +255,6 @@
   "docstatus": 0,
   "doctype": "Workflow State",
   "icon": "",
-  "modified": "2025-11-24 19:47:55.120514",
-  "name": "On Hold",
-  "style": "Primary",
-  "workflow_state_name": "On Hold"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
-  "icon": "remove",
-  "modified": "2025-11-09 04:24:29.133671",
-  "name": "Rejected",
-  "style": "Danger",
-  "workflow_state_name": "Rejected"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
-  "icon": "",
   "modified": "2025-11-11 23:15:33.473085",
   "name": "Qualified",
   "style": "Primary",
@@ -327,15 +345,6 @@
   "docstatus": 0,
   "doctype": "Workflow State",
   "icon": "",
-  "modified": "2025-11-11 23:15:34.390488",
-  "name": "In Progress",
-  "style": "Primary",
-  "workflow_state_name": "In Progress"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
-  "icon": "",
   "modified": "2025-11-11 23:15:34.621078",
   "name": "Submitted",
   "style": "Primary",
@@ -362,29 +371,11 @@
  {
   "docstatus": 0,
   "doctype": "Workflow State",
-  "icon": "ok-sign",
-  "modified": "2025-11-09 04:24:29.132248",
-  "name": "Approved",
-  "style": "Success",
-  "workflow_state_name": "Approved"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
   "icon": "",
   "modified": "2025-11-11 23:15:33.936366",
   "name": "Completed",
   "style": "Primary",
   "workflow_state_name": "Completed"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
-  "icon": "",
-  "modified": "2025-11-11 23:15:33.465536",
-  "name": "Draft",
-  "style": "Primary",
-  "workflow_state_name": "Draft"
  },
  {
   "docstatus": 0,
@@ -403,5 +394,50 @@
   "name": "Reopen",
   "style": "Inverse",
   "workflow_state_name": "Reopen"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "remove",
+  "modified": "2025-11-09 04:24:29.133671",
+  "name": "Rejected",
+  "style": "Danger",
+  "workflow_state_name": "Rejected"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-24 19:47:55.120514",
+  "name": "On Hold",
+  "style": "Primary",
+  "workflow_state_name": "On Hold"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "ok-sign",
+  "modified": "2025-11-09 04:24:29.132248",
+  "name": "Approved",
+  "style": "Success",
+  "workflow_state_name": "Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:33.465536",
+  "name": "Draft",
+  "style": "Primary",
+  "workflow_state_name": "Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2025-11-11 23:15:34.390488",
+  "name": "In Progress",
+  "style": "Primary",
+  "workflow_state_name": "In Progress"
  }
 ]

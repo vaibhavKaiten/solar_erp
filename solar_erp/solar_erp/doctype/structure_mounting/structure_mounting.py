@@ -56,7 +56,7 @@ class StructureMounting(Document):
         
         # Link the Project Installation
         if project_installation:
-            frappe.db.set_value("Structure Mounting", self.name, "linked_project_installation", project_installation.name, update_modified=False)
+            frappe.db.set_value("Structure Mounting", self.name, "linked_panel_installation", project_installation.name, update_modified=False)
         
         # Commit the transaction
         frappe.db.commit()
@@ -113,6 +113,7 @@ class StructureMounting(Document):
             )
         }).insert(ignore_permissions=True)
 
+
     @frappe.whitelist()
     def fix_project_installation_link(self):
         """Manually trigger linking of Project Installation"""
@@ -122,3 +123,79 @@ class StructureMounting(Document):
         # This re-runs the linking logic
         self.handle_approval()
         return {"status": "success", "message": _("Link fixed successfully")}
+
+    @frappe.whitelist()
+    def initiate_structure_mounting(self):
+        """
+        Initiate Structure Mounting for Vendor
+        - Changes status to 'Assigned to Vendor'
+        - Assigns document to the Vendor Manager of the assigned vendor
+        """
+        
+        # 1. Validation
+        if not (self.assigned_vendor):
+             frappe.throw(_("Please assign a Vendor before initiating."))
+
+        if self.status != "Draft":
+             frappe.throw(_("Can only initiate when status is 'Draft'. Current status: {0}").format(self.status))
+             
+        # Check permissions (System Manager, Administrator, Structure Mounting Manager, Project Manager)
+        roles = frappe.get_roles()
+        allowed_roles = ["System Manager", "Administrator", "Structure Mounting Manager", "Project Manager"]
+        
+        has_permission = any(role in roles for role in allowed_roles)
+        
+        if not has_permission:
+            frappe.throw(_("You do not have permission to initiate Structure Mounting."))
+
+        # 2. Find Vendor Manager
+        # Logic: Supplier -> Dynamic Link (Contact) -> Contact -> User -> Role 'Vendor Manager'
+        
+        contacts = frappe.db.sql("""
+            SELECT dl.parent
+            FROM `tabDynamic Link` dl
+            WHERE dl.link_doctype = 'Supplier'
+                AND dl.link_name = %s
+                AND dl.parenttype = 'Contact'
+        """, (self.assigned_vendor,), as_dict=True)
+        
+        contact_names = [c.parent for c in contacts]
+        
+        if not contact_names:
+            frappe.throw(_("No contacts linked to Vendor {0}. Cannot identify Vendor Manager.").format(self.assigned_vendor))
+            
+        managers = frappe.db.sql("""
+            SELECT DISTINCT u.name
+            FROM `tabUser` u
+            INNER JOIN `tabContact` c ON c.user = u.name
+            INNER JOIN `tabHas Role` hr ON hr.parent = u.name
+            WHERE hr.role = 'Vendor Manager'
+                AND c.name IN %s
+                AND u.enabled = 1
+        """, (contact_names,), as_dict=True)
+        
+        if not managers:
+             frappe.throw(_("No valid 'Vendor Manager' found for Vendor {0}. Please ensure a Contact is linked to a User with 'Vendor Manager' role.").format(self.assigned_vendor))
+
+        # 3. Update Status
+        self.status = "Assigned to Vendor"
+        self.save(ignore_permissions=True)
+        
+        # 4. Assign ToDo to Vendor Manager(s)
+        from frappe.desk.form.assign_to import add as add_assignment
+        
+        assigned_users = []
+        for manager in managers:
+            add_assignment({
+                "assign_to": [manager.name],
+                "doctype": "Structure Mounting",
+                "name": self.name,
+                "description": _("Structure Mounting {0} has been assigned to you.").format(self.name),
+            })
+            assigned_users.append(manager.name)
+            
+        frappe.msgprint(
+            _("Structure Mounting Initiated. Assigned to: {0}").format(", ".join(assigned_users)),
+            indicator='green',
+            alert=True
+        )

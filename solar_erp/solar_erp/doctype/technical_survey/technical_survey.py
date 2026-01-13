@@ -192,7 +192,7 @@ def start_work(docname):
     """
     doc = frappe.get_doc("Technical Survey", docname)
     
-    if doc.status not in ["Assigned", "Scheduled", "Reopened"]:
+    if doc.status not in ["Assigned to Vendor", "Scheduled", "Reopened"]:
         frappe.throw(_("Can only start work when status is Assigned to Vendor, Scheduled, or Reopened"))
     
     # Check if user has the right role
@@ -224,7 +224,7 @@ def hold_work(docname, reason):
     """
     doc = frappe.get_doc("Technical Survey", docname)
     
-    if doc.status not in ["Assigned", "In Progress"]:
+    if doc.status not in ["Assigned to Vendor", "In Progress"]:
         frappe.throw(_("Can only hold when status is Assigned to Vendor or In Progress"))
     
     # Check if user has Vendor Executive or Vendor Manager role
@@ -413,13 +413,13 @@ def send_to_vendor(docname):
     if not doc.assigned_vendor:
         frappe.throw(_("Please assign a vendor before sending"))
     
-    doc.status = "Assigned"
+    doc.status = "Assigned to Vendor"
     doc.flags.ignore_permissions = True
     doc.flags.from_action_method = True
     doc.save()
     frappe.db.commit()
     
-    _log_status_change(doc.name, f"Sent to vendor: {doc.assigned_vendor}", "Assigned")
+    _log_status_change(doc.name, f"Sent to vendor: {doc.assigned_vendor}", "Assigned to Vendor")
     
     return {"status": "success", "message": _("Technical Survey sent to vendor successfully")}
 

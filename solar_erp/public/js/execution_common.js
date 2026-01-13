@@ -105,11 +105,24 @@ solar_erp.execution.add_action_buttons = function (frm) {
     const is_admin = solar_erp.execution.is_admin();
 
     // =========================================================================
-    // VENDOR EXECUTIVE ACTIONS
+    // SPECIFIC DOCTYPE ACTIONS
+    // =========================================================================
+
+
     // =========================================================================
     if (is_vendor || is_admin) {
         // Start button - Draft, Scheduled, Reopened, Rework -> In Progress
-        if (['Draft', 'Scheduled', 'Reopened', 'Rework'].includes(status)) {
+        // Exception: Structure Mounting cannot be started from Draft (must be Initiated first)
+        let allowed_start_statuses = ['Draft', 'Scheduled', 'Reopened', 'Rework'];
+
+        if (frm.doctype === 'Structure Mounting') {
+            // Structure Mounting start flow: Assigned to Vendor -> In Progress
+            // So it should show for 'Assigned to Vendor', 'Scheduled', 'Reopened', 'Rework'
+            // It must NOT show for 'Draft'
+            allowed_start_statuses = ['Assigned to Vendor', 'Scheduled', 'Reopened', 'Rework'];
+        }
+
+        if (allowed_start_statuses.includes(status)) {
             frm.add_custom_button(__('Start'), function () {
                 solar_erp.execution.start_work(frm);
             }, __('Actions')).addClass('btn-primary');

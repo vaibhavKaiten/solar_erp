@@ -333,7 +333,7 @@ def initiate_survey_for_vendor(survey_name):
             }
         
         # Change status from Draft to Assigned
-        survey.status = "Assigned"
+        survey.status = "Assigned to Vendor"
         
         # Ensure assigned_vendor is preserved
         survey.assigned_vendor = original_vendor
@@ -357,7 +357,7 @@ def initiate_survey_for_vendor(survey_name):
         return {
             "success": True,
             "vendor_company": original_vendor,
-            "message": _("Technical Survey initiated for vendor {0}. Status changed to Assigned.").format(
+            "message": _("Technical Survey initiated for vendor {0}. Status changed to Assigned to Vendor.").format(
                 original_vendor
             )
         }

@@ -144,7 +144,7 @@ function add_workflow_action_buttons(frm) {
     }
 
     // 2. Start (Vendor Executive)
-    if (is_vendor_executive && (status === 'Assigned' || status === 'Scheduled' || status === 'Reopened')) {
+    if (is_vendor_executive && (status === 'Assigned to Vendor' || status === 'Scheduled' || status === 'Reopened')) {
         frm.add_custom_button(__('Start'), function () {
             frappe.call({
                 method: 'solar_erp.solar_erp.doctype.technical_survey.technical_survey.start_work',
@@ -160,7 +160,7 @@ function add_workflow_action_buttons(frm) {
     }
 
     // 3. Put on Hold (Vendor Executive/Manager)
-    if ((is_vendor_executive || is_vendor_manager) && (status === 'Assigned' || status === 'In Progress')) {
+    if ((is_vendor_executive || is_vendor_manager) && (status === 'Assigned to Vendor' || status === 'In Progress')) {
         frm.add_custom_button(__('Put on Hold'), function () {
             frappe.prompt({
                 fieldtype: 'Small Text',
@@ -323,7 +323,7 @@ function add_workflow_action_buttons(frm) {
 function set_status_indicator(frm) {
     const status_colors = {
         'Draft': 'grey',
-        'Assigned': 'blue',
+        'Assigned to Vendor': 'blue',
         'In Progress': 'orange',
         'On Hold': 'yellow',
         'In Review': 'purple',
