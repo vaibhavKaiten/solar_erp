@@ -62,6 +62,25 @@ fixtures = [
         ]
     },
 
+    # ✅ Custom Fields attached to CORE ERPNext doctypes (Lead, Sales Order, etc.)
+    {
+        "dt": "Custom Field",
+        "filters": [
+            ["dt", "in", [
+                "Lead",
+                "Sales Order",
+                "Supplier",
+                "Material Request",
+                "Quotation",
+                "Sales Invoice",
+                "Purchase Order",
+                "Delivery Note",
+                "Purchase Receipt",
+                "Payment Entry"
+            ]]
+        ]
+    },
+
     # ✅ Client Scripts tied to Solar ERP doctypes
     {
         "dt": "Client Script",
@@ -88,6 +107,25 @@ fixtures = [
         ["doc_type", "in", SOLAR_ERP_DOCTYPES]
     ]
 },
+
+    # ✅ Property Setters for CORE ERPNext doctypes
+    {
+        "dt": "Property Setter",
+        "filters": [
+            ["doc_type", "in", [
+                "Lead",
+                "Sales Order",
+                "Supplier",
+                "Material Request",
+                "Quotation",
+                "Sales Invoice",
+                "Purchase Order",
+                "Delivery Note",
+                "Purchase Receipt",
+                "Payment Entry"
+            ]]
+        ]
+    },
 
 
     # {"dt": "Role"},
