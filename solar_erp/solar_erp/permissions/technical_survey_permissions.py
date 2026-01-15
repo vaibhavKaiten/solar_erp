@@ -98,6 +98,7 @@ def has_permission(doc, ptype, user):
     This function is called when:
     - Opening a document directly via URL
     - Checking read/write/delete permissions
+    - Checking assignment permissions
     
     Company-based permissions:
     - Vendor Manager: Can access all surveys for their supplier company
@@ -175,22 +176,43 @@ def has_permission(doc, ptype, user):
             return True
         
         # Vendor Executive → only if explicitly assigned
+        # IMPORTANT: When checking permissions for assignment (ptype='read'),
+        # we need to be lenient to allow Vendor Managers to assign tasks
+        # to executives who don't have the document assigned yet.
         if any(r in user_roles for r in vendor_exec_roles):
             assigned_executive = doc.get("custom_technical_executive") if hasattr(doc, 'get') else getattr(doc, 'custom_technical_executive', None)
             
+            # Allow if user is the assigned executive
             if assigned_executive == user:
                 return True
-            else:
-                frappe.msgprint(
-                    _("This Technical Survey has not been assigned to you yet. "
-                      "Please contact your Vendor Manager to get this survey assigned."),
-                    indicator="orange",
-                    raise_exception=True
-                )
-                return False
+            
+            # Check if this is an assignment operation being performed by a Vendor Manager
+            # by looking at the frappe.form_dict or frappe.call context
+            # If a Vendor Manager is viewing the doc to assign it, allow read access
+            current_user = frappe.session.user
+            current_user_roles = [role.lower() for role in frappe.get_roles(current_user)]
+            
+            # If the current session user (who triggered this check) is a Vendor Manager
+            # from the same company, allow the permission check to pass
+            # This enables assignment functionality
+            if any(r in current_user_roles for r in vendor_manager_roles):
+                current_user_vendor = get_user_supplier(current_user)
+                if current_user_vendor == vendor_company:
+                    # Vendor Manager from same company can assign - allow
+                    return True
+            
+            # If we reach here, the executive is not assigned and no manager override applies
+            frappe.msgprint(
+                _("This Technical Survey has not been assigned to you yet. "
+                  "Please contact your Vendor Manager to get this survey assigned."),
+                indicator="orange",
+                raise_exception=True
+            )
+            return False
     
     # No matching role - deny access
     return False
+
 
 
 

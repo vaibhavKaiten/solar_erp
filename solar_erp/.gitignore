@@ -13,7 +13,7 @@ __pycache__/
 # Local scripts / experiments
 scripts/
 check_*.py
-debug_*.py
+# debug_*.py
 verify_*.py
 test_*.py
 research_*.py

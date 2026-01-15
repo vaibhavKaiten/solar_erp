@@ -141,7 +141,10 @@ fixtures = [
 # include js, css files in header of desk.html
 # app_include_css = "/assets/solar_erp/css/solar_erp.css"
 # app_include_js = "/assets/solar_erp/js/execution_common.js"
-app_include_js = "public/js/execution_common.js"
+app_include_js = [
+    "/assets/solar_erp/js/execution_common.js",
+    "/assets/solar_erp/js/custom_assignment.js"
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/solar_erp/css/solar_erp.css"
