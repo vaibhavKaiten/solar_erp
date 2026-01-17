@@ -333,7 +333,9 @@ def initiate_survey_for_vendor(survey_name):
             }
         
         # Change status from Draft to Assigned
+        # Also update workflow_state to keep it synchronized with status
         survey.status = "Assigned to Vendor"
+        survey.workflow_state = "Assigned to Vendor"
         
         # Ensure assigned_vendor is preserved
         survey.assigned_vendor = original_vendor

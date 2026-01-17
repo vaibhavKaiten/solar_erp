@@ -1,0 +1,233 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:SUB-{YYYY}-{####}",
+ "creation": "2025-11-11 19:25:23.141175",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sec1",
+  "lead",
+  "customer",
+  "scheme",
+  "col1",
+  "application_id",
+  "application_date",
+  "status",
+  "sec2",
+  "discom",
+  "discom_division",
+  "k_number",
+  "sec3",
+  "system_capacity",
+  "first_name",
+  "last_name",
+  "col2",
+  "address_line_1",
+  "city",
+  "state",
+  "territory",
+  "sec_docs",
+  "electricity_bill_attachment",
+  "documents",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sec1",
+   "fieldtype": "Section Break",
+   "label": "Application Details"
+  },
+  {
+   "columns": 4,
+   "fieldname": "lead",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lead",
+   "options": "Lead",
+   "reqd": 1
+  },
+  {
+   "columns": 4,
+   "fetch_from": "lead.lead_name",
+   "fieldname": "customer",
+   "fieldtype": "Data",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "columns": 4,
+   "fieldname": "scheme",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Scheme",
+   "options": "PM-Surya Ghar\nState Scheme\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 4,
+   "fieldname": "application_id",
+   "fieldtype": "Data",
+   "label": "Application ID"
+  },
+  {
+   "columns": 4,
+   "fieldname": "application_date",
+   "fieldtype": "Date",
+   "label": "Application Date"
+  },
+  {
+   "columns": 4,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nUnder Review\nApproved\nRejected\nPaid",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec2",
+   "fieldtype": "Section Break",
+   "label": "DISCOM Details"
+  },
+  {
+   "columns": 4,
+   "fieldname": "discom",
+   "fieldtype": "Data",
+   "label": "DISCOM"
+  },
+  {
+   "columns": 4,
+   "fieldname": "discom_division",
+   "fieldtype": "Data",
+   "label": "DISCOM Division"
+  },
+  {
+   "columns": 4,
+   "fieldname": "k_number",
+   "fieldtype": "Data",
+   "label": "K Number"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sec3",
+   "fieldtype": "Section Break",
+   "label": "System Details"
+  },
+  {
+   "columns": 4,
+   "fetch_from": "lead.custom_required_load_kw",
+   "fetch_if_empty": 1,
+   "fieldname": "system_capacity",
+   "fieldtype": "Float",
+   "label": "System Capacity (kW)"
+  },
+  {
+   "columns": 4,
+   "fetch_from": "lead.first_name",
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name"
+  },
+  {
+   "columns": 4,
+   "fetch_from": "lead.last_name",
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name"
+  },
+  {
+   "fieldname": "col2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "Address Line 1"
+  },
+  {
+   "columns": 4,
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "columns": 4,
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State"
+  },
+  {
+   "fieldname": "sec_docs",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "fetch_from": "lead.custom_electricity_bill",
+   "fetch_if_empty": 1,
+   "fieldname": "electricity_bill_attachment",
+   "fieldtype": "Attach",
+   "label": "Electricity Bill"
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Supporting Documents",
+   "options": "Subsidy Document Item"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Subsidy Application",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "lead.territory",
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-23 22:29:29.019960",
+ "modified_by": "Administrator",
+ "module": "Solar Project",
+ "name": "Subsidy Application",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

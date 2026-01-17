@@ -390,39 +390,6 @@ def reopen_survey(docname, reason):
     return {"status": "success", "message": _("Survey reopened. Vendor can now resume work.")}
 
 
-# =============================================================================
-# NEW WORKFLOW ACTIONS
-# =============================================================================
-
-@frappe.whitelist()
-def send_to_vendor(docname):
-    """
-    Send to Vendor - Solar Company action
-    From: Draft
-    To: Assigned to Vendor
-    """
-    doc = frappe.get_doc("Technical Survey", docname)
-    
-    if doc.status != "Draft":
-        frappe.throw(_("Can only send to vendor when status is Draft"))
-    
-    # Check if user has System Manager role
-    if not ("System Manager" in frappe.get_roles() or "Administrator" in frappe.get_roles()):
-        frappe.throw(_("Only System Manager can send to vendor"))
-    
-    if not doc.assigned_vendor:
-        frappe.throw(_("Please assign a vendor before sending"))
-    
-    doc.status = "Assigned to Vendor"
-    doc.flags.ignore_permissions = True
-    doc.flags.from_action_method = True
-    doc.save()
-    frappe.db.commit()
-    
-    _log_status_change(doc.name, f"Sent to vendor: {doc.assigned_vendor}", "Assigned to Vendor")
-    
-    return {"status": "success", "message": _("Technical Survey sent to vendor successfully")}
-
 
 @frappe.whitelist()
 def complete_survey(docname):

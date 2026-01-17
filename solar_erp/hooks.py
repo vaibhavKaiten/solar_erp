@@ -97,9 +97,20 @@ fixtures = [
         ]
     },
 
-    # {"dt": "Workflow"},
-    # {"dt": "Workflow State"},
-    # {"dt": "Workflow Action"},
+    {
+        "dt": "Workflow",
+        "filters": [
+            ["document_type", "in", SOLAR_ERP_DOCTYPES]
+        ]
+    },
+    {
+        "dt": "Workflow State",
+        # Workflow States are global; usually, you export all or filter by name
+    },
+    {
+        "dt": "Workflow Action",
+        # Workflow Actions are also global
+    },
 
     {
     "dt": "Property Setter",

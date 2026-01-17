@@ -182,7 +182,8 @@ def create_next_stage(doc):
     new_doc_data = {
         "doctype": next_doctype,
         "job_file": doc.job_file,
-        "status": "Draft"
+        "status": "Draft",
+        "workflow_state": "Draft"  # Keep workflow_state in sync with status
     }
     
     # Only add vendor if valid
@@ -247,6 +248,15 @@ def update_job_file_status(job_file, completed_stage):
     jf.save(ignore_permissions=True)
 
 
+def set_status_and_workflow(doc, new_status):
+    """
+    Set both status and workflow_state to keep them synchronized
+    This prevents list view (workflow_state) and form view (status) mismatches
+    """
+    doc.status = new_status
+    doc.workflow_state = new_status
+
+
 # =============================================================================
 # WHITELISTED ACTION APIS
 # =============================================================================
@@ -267,7 +277,7 @@ def start_work(doctype, docname):
         if not doc.get("survey_date"):
             doc.survey_date = frappe.utils.today()
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.save(ignore_permissions=True)
     
     log_action(doc, "start", "Work started")
@@ -293,7 +303,7 @@ def hold_work(doctype, docname, reason):
     doc = frappe.get_doc(doctype, docname)
     next_status = validate_transition(doc.status, "hold")
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.workflow_reason = reason
     doc.save(ignore_permissions=True)
     
@@ -327,7 +337,7 @@ def submit_for_review(doctype, docname):
             title=_("Invalid Status")
         )
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.save(ignore_permissions=True)
     
     log_action(doc, "submit", "Submitted for review")
@@ -355,7 +365,7 @@ def approve(doctype, docname, comment):
     doc = frappe.get_doc(doctype, docname)
     next_status = validate_transition(doc.status, "approve")
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.workflow_reason = comment
     doc.reviewer = frappe.session.user
     doc.review_decision = "Approved"
@@ -498,7 +508,7 @@ def request_rework(doctype, docname, comment):
     doc = frappe.get_doc(doctype, docname)
     next_status = validate_transition(doc.status, "rework")
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.workflow_reason = comment
     doc.reviewer = frappe.session.user
     doc.review_decision = "Rework"
@@ -528,7 +538,7 @@ def close_stage(doctype, docname, comment):
     doc = frappe.get_doc(doctype, docname)
     next_status = validate_transition(doc.status, "close")
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.workflow_reason = comment
     doc.save(ignore_permissions=True)
     
@@ -555,7 +565,7 @@ def reopen_stage(doctype, docname, comment):
     doc = frappe.get_doc(doctype, docname)
     next_status = validate_transition(doc.status, "reopen")
     
-    doc.status = next_status
+    set_status_and_workflow(doc, next_status)
     doc.workflow_reason = comment
     doc.save(ignore_permissions=True)
     

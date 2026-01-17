@@ -8,7 +8,7 @@
  "field_order": [
   "naming_series",
   "references_section",
-  "panel_installation",
+  "project_installation",
   "linked_meter_commissioning",
   "job_file",
   "lead",
@@ -53,11 +53,11 @@
    "label": "References"
   },
   {
-   "description": "Source Panel Installation record",
-   "fieldname": "panel_installation",
+   "description": "Source Project Installation record",
+   "fieldname": "project_installation",
    "fieldtype": "Link",
    "in_standard_filter": 1,
-   "label": "Panel Installation",
+   "label": "Project Installation",
    "options": "Project Installation",
    "read_only": 1
   },
@@ -100,7 +100,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "Draft\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
+   "options": "Draft\nAssigned to Vendor\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
    "read_only": 1
   },
   {

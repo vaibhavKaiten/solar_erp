@@ -88,7 +88,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
-   "options": "Draft\nScheduled\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
+   "options": "Draft\nAssigned to Vendor\nScheduled\nIn Progress\nBlocked\nReady for Review\nRework\nApproved\nClosed",
    "read_only": 1
   },
   {

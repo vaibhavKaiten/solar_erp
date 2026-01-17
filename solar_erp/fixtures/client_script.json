@@ -2,6 +2,17 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Procurement Consolidation",
+  "enabled": 1,
+  "modified": "2026-01-16 16:56:15.568173",
+  "module": null,
+  "name": "Procurement Consolidation - check auto select",
+  "script": "frappe.ui.form.on('Procurement Consolidation', {\r\n    refresh: function(frm) {\r\n        // Jab table mein koi row select ho (Standard Checkbox)\r\n        frm.fields_dict['items'].grid.wrapper.on('change', 'input[type=\"checkbox\"]', function(e) {\r\n            let $checkbox = $(e.currentTarget);\r\n            let is_checked = $checkbox.is(':checked');\r\n            \r\n            // Agar ye \"Select All\" ya individual row selector hai\r\n            let grid_row = $checkbox.closest('.grid-row').data('grid_row');\r\n            \r\n            if (grid_row) {\r\n                let docname = grid_row.doc.name;\r\n                // Aapke 'select_it' field ko update karega\r\n                frappe.model.set_value('Consolidated Procurement Item', docname, 'select_item', is_checked ? 1 : 0);\r\n            }\r\n        });\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Technical Survey",
   "enabled": 0,
   "modified": "2025-12-26 19:29:24.029664",

@@ -5,7 +5,7 @@
 frappe.ui.form.on('Meter Commissioning', {
     refresh: function (frm) {
         // Set status indicator
-        solar_erp.execution.set_status_indicator(frm);
+        solar_erp.execution.set_workflow_indicator(frm);
 
         // Add action buttons based on role and status
         solar_erp.execution.add_action_buttons(frm);
