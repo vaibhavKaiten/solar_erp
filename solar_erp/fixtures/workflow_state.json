@@ -2,15 +2,6 @@
  {
   "docstatus": 0,
   "doctype": "Workflow State",
-  "icon": "question-sign",
-  "modified": "2026-02-07 11:05:31.698889",
-  "name": "Pending",
-  "style": "",
-  "workflow_state_name": "Pending"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
   "icon": "ok-sign",
   "modified": "2026-02-07 11:05:31.700654",
   "name": "Approved",
@@ -20,11 +11,11 @@
  {
   "docstatus": 0,
   "doctype": "Workflow State",
-  "icon": "remove",
-  "modified": "2026-02-07 11:05:31.701776",
-  "name": "Rejected",
-  "style": "Danger",
-  "workflow_state_name": "Rejected"
+  "icon": "question-sign",
+  "modified": "2026-02-07 11:05:31.698889",
+  "name": "Pending",
+  "style": "",
+  "workflow_state_name": "Pending"
  },
  {
   "docstatus": 0,
@@ -34,5 +25,14 @@
   "name": "Draft",
   "style": "",
   "workflow_state_name": "Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "remove",
+  "modified": "2026-02-07 11:05:31.701776",
+  "name": "Rejected",
+  "style": "Danger",
+  "workflow_state_name": "Rejected"
  }
 ]
