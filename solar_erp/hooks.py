@@ -140,6 +140,15 @@ app_license = "mit"
 # 	}
 # }
 
+
+fixtures = [
+    {"dt": "Custom Field", "filters": [["dt", "=", "Lead"]]},
+    {"dt": "Workflow", "filters": [["name", "=", "Your_Workflow_Name"]]},
+    {"dt": "Workflow Action", "filters": [["name", "in", ["Approved", "Rejected"]]]},
+    "Workflow State"
+]
+
+
 # Scheduled Tasks
 # ---------------
 
